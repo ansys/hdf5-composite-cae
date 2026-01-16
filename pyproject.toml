@@ -32,7 +32,7 @@ oss = [
 ]
 
 doc = [
-    "Sphinx>8.2.0",
+    "Sphinx>8.0.0",
     "numpydoc>1.5.0",
     "ansys-sphinx-theme>0.9.7",
     "sphinx-copybutton>0.5.1",
