@@ -74,7 +74,7 @@ All attributes are optional.
      - "2010-08-23 13:31:13Z"
    * - ``vendor``
      - string
-     - "ansys, Inc."
+     - "ansys, inc."
    * - ``unit_system``
      - string
      - "SI", "Imperial"
@@ -520,7 +520,7 @@ Change Log
      - Description
      - Author
    * - May 5, 2010
-     - ACP – FiberSIM Interface Format Specification Rev 01
+     - ACP–FiberSIM Interface Format Specification Rev 01
      - O. Koenig, M. Wintermantel
    * - June 5, 2010
      - HDF5 Composite CAE Data File Specification Proposal version 1.1
