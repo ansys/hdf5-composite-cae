@@ -74,7 +74,7 @@ All attributes are optional.
      - "2010-08-23 13:31:13Z"
    * - ``vendor``
      - string
-     - "Ansys, Inc."
+     - "ansys, Inc."
    * - ``unit_system``
      - string
      - "SI", "Imperial"
