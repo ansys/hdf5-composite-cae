@@ -38,7 +38,7 @@ jobs:
     name: "Documentation style"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/doc-style@v5
+      - uses: ansys/actions/doc-style@v10
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -51,9 +51,27 @@ jobs:
        python-version: ['3.10', '3.11', '3.12']
       fail-fast: false
     steps:
-      - uses: ansys/actions/tests-pytest@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
         with:
-          pytest-extra-args: "--cov=ansys --cov-report=term --cov-report=html:.cov/html"
+          activate-environment: true
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+
+      - name: "Checkout the project"
+        uses: actions/checkout@v5
+
+      - name: "Set up Python ${{ matrix.python-version }}"
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: "Install Python dependencies"
+        run: |
+          uv sync
+
+      - name: "Run tests"
+        run: | 
+          uv run pytest
 
   doc-build:
     name: "Build documentation"

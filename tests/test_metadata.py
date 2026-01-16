@@ -1,4 +1,4 @@
-from ansys.hdf5_composite_cae.library import __version__
+from ansys.hdf5_composite_cae import __version__
 
 
 def test_pkg_version():
