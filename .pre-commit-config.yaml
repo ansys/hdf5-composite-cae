@@ -36,4 +36,4 @@ repos:
     args:
     - --custom_template=ansys_copyright_only
     - --ignore_license_check
-    - --start_year=2023
+    - --start_year=2026

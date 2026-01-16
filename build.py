@@ -1,24 +1,34 @@
-import sys
-from sphinx.cmd.build import main as build_main
-from build_tools.logger import log
 import argparse
+import sys
+
+from sphinx.cmd.build import main as build_main
+
+from build_tools.logger import log
 
 
 def build_doc(config):
     """Build Sphinx documentation."""
-    build_main(['-b', 'html', 'doc/source', './_build/html', '--color', '-vW'])
+    build_main(["-b", "html", "doc/source", "./_build/html", "--color", "-vW"])
+
 
 def get_build_steps():
-    return {
-        "build_doc": build_doc
-    }
+    return {"build_doc": build_doc}
+
 
 def get_arg_parser():
-    parser = argparse.ArgumentParser(description="Build project",
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument("command", nargs='+', choices=get_build_steps().keys(), help="Operation to perform")
+    parser = argparse.ArgumentParser(
+        description="Build project",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument(
+        "command",
+        nargs="+",
+        choices=get_build_steps().keys(),
+        help="Operation to perform",
+    )
 
     return parser
+
 
 def main(args):
     log.info(f"Using python at: {sys.executable}")
@@ -33,7 +43,5 @@ def main(args):
 
 
 if __name__ == "__main__":
-
     parser = get_arg_parser()
     main(parser.parse_args())
-

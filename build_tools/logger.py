@@ -1,7 +1,9 @@
 import logging
 
 file_formatter = logging.Formatter("[%(asctime)s/%(levelname)5.5s]  %(message)s")
-stream_formatter = logging.Formatter("[%(asctime)s/%(levelname)5.5s]  %(message)s", datefmt='%H:%M:%S')
+stream_formatter = logging.Formatter(
+    "[%(asctime)s/%(levelname)5.5s]  %(message)s", datefmt="%H:%M:%S"
+)
 file_handler = logging.FileHandler("build.log")
 file_handler.setFormatter(file_formatter)
 file_handler.setLevel(logging.DEBUG)
