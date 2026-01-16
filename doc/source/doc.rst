@@ -2,13 +2,6 @@
 HDF5 Composite CAE Specification
 ===================================
 
-:Authors:
-    - Johan Grape (johan.grape@vistagy.com)
-    - Jim Koenig (jim.koenig@vistagy.com)
-    - Oliver König (oliver.koenig@ansys.com)
-    - Marc Wintermantel (marc.wintermantel@ansys.com)
-    - Uche Mennel (uche.mennel@ansys.com)
-
 .. contents:: Table of Contents
    :depth: 2
    :local:
@@ -50,13 +43,12 @@ Data nodes can either contain array data or scalar data in attributes.
 Specification of Node Names
 ---------------------------
 
-To provide smooth interoperability with most high-level HDF5 interfaces (e.g. PyTables), the HDF node names must match the (perl regexp) pattern ``'^[a-zA-Z_][a-zA-Z0-9_]*$'``. The names on the Nodes must be unique within each group.
+To provide smooth interoperability with most high-level HDF5 interfaces (for example PyTables), the HDF node names must match the (perl regexp) pattern ``'^[a-zA-Z_][a-zA-Z0-9_]*$'``. The names on the Nodes must be unique within each group.
 
 General Comments
 -----------------
 
 The encoding of String attributes is UTF8.
-
 
 
 Root level nodes
@@ -82,7 +74,7 @@ All attributes are optional.
      - "2010-08-23 13:31:13Z"
    * - ``vendor``
      - string
-     - "VISTAGY, Inc."
+     - "Ansys, Inc."
    * - ``unit_system``
      - string
      - "SI", "Imperial"
@@ -116,7 +108,7 @@ composite_cae->global_coord_sys
    [dir2 x]     [dir2 y]     [dir2 z]
    [dir3 x]     [dir3 y]     [dir3 z]
 
-Defines the origin and directions of the origin for the entire model. Currently not supported by Ansys.
+Defines the origin and directions of the origin for the entire model. Currently not supported by ansys.
 
 Material Data
 =============
@@ -134,7 +126,7 @@ Array of double
    [0, 45, -45]
 
 .. note::
-   This property is not written or read by Ansys. It will be removed in the future.
+   This property is not written or read by ansys. It will be removed in the future.
 
 material_data->fabrics->fabric(named)->mechanical
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -291,7 +283,7 @@ Currently the following element types are defined:
 - **6:** 6 node shell
 - **8:** 8 node shell
 
-The list of element types might be expanded in the future, e.g. using 108 and 120 for 8 and 20 node bricks.
+The list of element types might be expanded in the future, for example using 108 and 120 for 8 and 20 node bricks.
 
 meshes->mesh(named)->element_nodes
 ----------------------------------
@@ -409,7 +401,7 @@ components->component(named)->rosettes->rosette(named)
 
 **Softlink (Optional)**
 
-Defines a link to the rosette(s) of this component.
+Defines a link to the rosettes of this component.
 
 Rosettes
 ========
@@ -493,7 +485,7 @@ data_maps->data_map(named)->scalar_user_data->scalar_user_data(named)
 
 n by 1 array of double (Optional)
 
-User defined scalar data fields. Only supported by Ansys.
+User defined scalar data fields. Only supported by ansys.
 
 
 .. list-table::
