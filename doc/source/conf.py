@@ -5,7 +5,7 @@ import os
 from ansys_sphinx_theme import get_version_match
 from ansys_sphinx_theme import pyansys_logo_black as logo
 
-from ansys.hdf5_composite_cae.library import __version__
+from ansys.hdf5_composite_cae import __version__
 
 # Project information
 project = "ansys-hdf5-composite-cae-library"
