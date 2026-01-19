@@ -16,3 +16,9 @@ Install the `ansys.hdf5_composite_cae` package in editable mode with all dev dep
 ```
 uv sync
 ```
+
+Build documentation:
+
+```
+python build.py build_doc
+```
