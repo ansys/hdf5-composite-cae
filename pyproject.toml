@@ -36,6 +36,8 @@ doc = [
     "numpydoc>1.5.0",
     "ansys-sphinx-theme>0.9.7",
     "sphinx-copybutton>0.5.1",
+    "pdf2image>=1.17.0",
+    "pillow>=12.1.0",
 ]
 
 

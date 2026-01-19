@@ -2,11 +2,38 @@
 HDF5 Composite CAE Specification
 ===================================
 
+
+This document describes the HDF5 Composite CAE file format specification. This format is used to exchange composite layup information between different CAE tools.
+The specification document is quite detailed. The most important items are:
+
+* The mesh is a set of nodes and elements on which you store the geometrical information of the layup
+* A component represents a layer in the layup. It always references a data_map and a mesh. The data_map contains the actual geometrical information for each element or node in the mesh. In the simplest case this is just the thickness and the reference direction/fiber direction.
+
+
+Since hdf5 is a binary format you need a viewer to look at the file which you can find here:
+
+https://www.hdfgroup.org/download-hdfview/
+
+
+There are several libraries available to write hd5 files, for example:
+
+Python: https://docs.h5py.org/en/stable/
+
+
+Tree overview
+=============
+
+.. figure:: _static/tree.png
+   :target: _static/tree.png
+   :alt: HDF5 Composite CAE Specification Tree
+   :width: 600px
+   :align: center
+
+   Click to view full size
+
 .. contents:: Table of Contents
    :depth: 2
    :local:
-
-
 
 General information
 ===================
@@ -508,6 +535,8 @@ component_groups->component_group(named)
 Optional
 
 Component groups can be defined to store grouping information of components.
+
+
 
 Change Log
 ==========
