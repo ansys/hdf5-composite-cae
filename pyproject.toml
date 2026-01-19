@@ -1,67 +1,84 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
 
-[tool.poetry]
-# Check https://python-poetry.org/docs/pyproject/ for all available sections
-name = "ansys-hdf5-composite-cae-library"
+[project]
+name = "ansys-hdf5-composite-cae"
 version = "0.1.dev0"
 description = "A utility library for the hdf5 composite cae format"
 license = "MIT"
-authors = ["ANSYS, Inc. <pyansys.core@ansys.com>"]
-maintainers = ["PyAnsys developers <pyansys.core@ansys.com>"]
-readme = "README.rst"
+authors = [{ name = "ANSYS, Inc."}]
+requires-python = ">=3.10,<3.13"
+maintainers = [{ name = "ANSYS, Inc."}]
+readme = "README.md"
 repository = "https://github.com/ansys-internal/hdf5-composite-cae"
 classifiers = [
-    "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-packages = [
-    { include = "ansys", from = "src" },
+
+dependencies = [
+    "numpy==2.2.6",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.8,<4.0"
-importlib-metadata = {version = "^4.0", python = "<3.8"}
+[dependency-groups]
+dev = [
+    "pytest==9.0.2",
+    "pre-commit==4.5.1",
+]
 
-# Optional documentation dependencies
-[tool.poetry.group.doc]
-optional = true
+oss = [
+    "pip-licenses>=5.0.0",
+]
 
-[tool.poetry.group.doc.dependencies]
-Sphinx = "^5.3.0"
-numpydoc = "^1.5.0"
-ansys-sphinx-theme = "^0.9.7"
-sphinx-copybutton = "^0.5.1"
+doc = [
+    "Sphinx>8.0.0",
+    "numpydoc>1.5.0",
+    "ansys-sphinx-theme>0.9.7",
+    "sphinx-copybutton>0.5.1",
+    "pdf2image>=1.17.0",
+    "pillow>=12.1.0",
+]
 
-# Optional testing dependencies
-[tool.poetry.group.tests]
-optional = true
-[tool.poetry.group.tests.dependencies]
-pytest = "^8.2.2"
-pytest-cov = "^4.0.0"
 
-# Optional build requirements
-[tool.poetry.group.build]
-optional = true
-[tool.poetry.group.build.dependencies]
-build = "^0.10.0"
-twine = "^4.0.2"
+[tool.flit.module]
+name = "ansys.hdf5_composite_cae"
 
-[tool.black]
-line-length = 100
+[tool.ruff.lint]
+select = [
+    "E",       # pycodestyle errors
+    "W",       # pycodestyle warnings
+    "F",       # pyflakes
+    "I",       # isort
+    "N",       # pep8-naming
+    "UP",      # pyupgrade
+    "A",       # flake8-builtins
+    "C4",      # flake8-comprehensions
+    "B",       # flake8-bugbear
+    "PLE",     # Pylint errors
+    "PLC",     # Pylint convention
+    "PLW",     # Pylint warnings
+    "PLR1711", # useless-return
+    "PLR5501", # collapsible-else-if
+    "Q",       # flake8-quotes
+    "PT",      # flake8-pytest-style
+    "LOG",     # flake8-logging
+    "RET",     # flake8-return,
+    "SIM",     # flake8-simplify,
+]
+ignore = ["E501", "A002"]
 
-[tool.isort]
-profile = "black"
-force_sort_within_sections = true
-line_length = 100
-default_section = "THIRDPARTY"
-src_paths = ["doc", "src", "tests"]
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["PT011", "A"]
 
-[tool.coverage.run]
-source = ["ansys.hdf5_composite_cae"]
 
-[tool.coverage.report]
-show_missing = true
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "[%(asctime)s | %(levelname)s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+junit_family = "xunit2"

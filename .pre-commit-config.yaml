@@ -1,40 +1,39 @@
 repos:
 
-- repo: https://github.com/psf/black
-  rev: 23.1.0
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+  rev: v0.11.13
   hooks:
-  - id: black
-
-- repo: https://github.com/pycqa/isort
-  rev: 5.12.0
-  hooks:
-  - id: isort
-
-- repo: https://github.com/PyCQA/flake8
-  rev: 6.0.0
-  hooks:
-  - id: flake8
+    # Run the linter.
+    - id: ruff-check
+      args: [ --fix ]
+    # Run the formatter.
+    - id: ruff-format
 
 - repo: https://github.com/codespell-project/codespell
-  rev: v2.2.4
+  rev: v2.4.1
   hooks:
   - id: codespell
+    args: [-I, .codespellignore]
+    exclude: >
+      (?x)^(
+          tests/data/basic_contact/ds.dat|
+          uv.lock|
+          tests/data/nr_residual/solve.out|
+          oss/dependencies.json|
+          oss/legal_notices.txt
+      )$
 
-- repo: https://github.com/pycqa/pydocstyle
-  rev: 6.3.0
-  hooks:
-  - id: pydocstyle
-    additional_dependencies: [toml]
-    exclude: "tests/"
 
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.4.0
+- repo: https://github.com/ansys/pre-commit-hooks
+  # Not using newer versions because they require 
+  # having a LICENSE file in the root directory.
+  # For internal repos we don't usually have a LICENSE file. 
+  rev: v0.2.9
   hooks:
-  - id: check-merge-conflict
-  - id: requirements-txt-fixer
-  - id: trailing-whitespace
-
-- repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.22.0
-  hooks:
-    - id: check-github-workflows
+  - id: add-license-headers
+    files: '(ansys)/.*\.(py)'
+    args:
+    - --custom_template=ansys_copyright_only
+    - --ignore_license_check
+    - --start_year=2026
