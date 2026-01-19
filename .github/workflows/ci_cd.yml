@@ -9,7 +9,7 @@ on:
 
 env:
   MAIN_PYTHON_VERSION: '3.12'
-  DOCUMENTATION_CNAME: 'hdf5_composite_cae.docs.pyansys.com'
+  DOCUMENTATION_CNAME: 'hdf5-composite-cae.docs.pyansys.com'
   LIBRARY_NAME: 'ansys-hdf5-composite-cae'
 
 concurrency:
