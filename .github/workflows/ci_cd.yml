@@ -141,7 +141,7 @@ jobs:
     steps:
       - uses: ansys/actions/doc-deploy-dev@v5
         with:
-          cname: ${{ env.DOCUMENTATION_CNAME }}
+      #    cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
   doc-deploy-stable:
@@ -152,7 +152,7 @@ jobs:
     steps:
       - uses: ansys/actions/doc-deploy-stable@v5
         with:
-          cname: ${{ env.DOCUMENTATION_CNAME }}
+    #      cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
 
