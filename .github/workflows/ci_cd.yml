@@ -117,7 +117,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
-          folder: _build
+          folder: _build/html
 
   build-library:
     name: "Build library"
