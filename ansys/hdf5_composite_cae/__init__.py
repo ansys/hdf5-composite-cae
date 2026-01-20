@@ -21,4 +21,4 @@ from .validate import (
     validate_file,
 )
 
-__all__ = ("create_minimal_h5_file", "validate_file")
+__all__ = ("create_minimal_h5_file", "validate_file", "__version__")
