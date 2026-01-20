@@ -35,7 +35,7 @@ jobs:
           echo "PR_NUMBER: $PR_NUMBER"
           echo "PR_URL: $PR_URL"
 
-          uv sync --no-dev --no-doc --no-oss
+          uv sync --no-dev
           uv run --no-sync dump_dependencies.py
         working-directory: oss
         env:
