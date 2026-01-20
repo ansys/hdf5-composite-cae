@@ -9,6 +9,8 @@ To use the validation capabilities and access the example files, the python pack
 
 .. code::
 
+    python -m venv .venv
+    .venv/Scripts/activate.bat # Linux: source .venv/bin/activate
     pip install ansys-hdf5-composite-cae
 
 This installs a command line tool ``validate_composite_cae_h5`` which can be used to check if a given h5 file conforms to the specification.
@@ -26,6 +28,7 @@ The package comes with a number of example h5 files. The following command shows
 
     show_composite_cae_h5_examples
 
+Click below to access the specification and the API reference of the module.
 
 .. grid:: 1 1 1 2
     :gutter: 2

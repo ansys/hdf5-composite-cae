@@ -42,7 +42,8 @@ doc = [
     "pdf2image>=1.17.0",
     "pillow>=12.1.0",
 ]
-
+[tool.uv]
+default-groups = ["doc", "dev"]
 
 [tool.flit.module]
 name = "ansys.hdf5_composite_cae"
