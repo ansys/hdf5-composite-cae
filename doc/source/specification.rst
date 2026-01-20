@@ -1,7 +1,7 @@
+.. _specification:
 ===================================
 HDF5 Composite CAE Specification
 ===================================
-
 
 This document describes the HDF5 Composite CAE file format specification. This format is used to exchange composite layup information between different CAE tools.
 The specification document is quite detailed. The most important items are:
@@ -9,16 +9,10 @@ The specification document is quite detailed. The most important items are:
 * The mesh is a set of nodes and elements on which you store the geometrical information of the layup
 * A component represents a layer in the layup. It always references a data_map and a mesh. The data_map contains the actual geometrical information for each element or node in the mesh. In the simplest case this is just the thickness and the reference direction/fiber direction.
 
+.. note::
+    Since hdf5 is a binary format, you need a viewer to look at the file which you can find here:
 
-Since hdf5 is a binary format you need a viewer to look at the file which you can find here:
-
-https://www.hdfgroup.org/download-hdfview/
-
-
-There are several libraries available to write hd5 files, for example:
-
-Python: https://docs.h5py.org/en/stable/
-
+    https://www.hdfgroup.org/download-hdfview/
 
 Tree overview
 =============
@@ -542,83 +536,48 @@ Change Log
 ==========
 
 .. list-table::
-   :widths: 15 50 15
+   :widths: 15 50
    :header-rows: 1
 
    * - Date
      - Description
-     - Author
    * - May 5, 2010
      - ACP–FiberSIM Interface Format Specification Rev 01
-     - O. Koenig, M. Wintermantel
    * - June 5, 2010
      - HDF5 Composite CAE Data File Specification Proposal version 1.1
-     - J. Grape, J. Koenig
    * - Aug 10, 2010
-     - HDF5 Composite CAE Data File Specification Release Candidate 1 for stable version 1.0
-
-       Latest modifications from EVEN:
-
-       - Modified stackup definition slightly to take into account that links cannot have attributes
-       - Proposing element type IDs to be used within mesh/elements array
-
-       Latest modifications taken from Vistagy's feedback of Aug 9 2010:
-
-       - Added ``composite_cae/temp_unit`` attribute
-       - Added the proposed thickness map data to the specification. This extension also leads to a name change of the "orientation_map" to the more general "data_map". For consistency we also propose to change 'material_thickness' to 'thicknesses'
-     - O. Koenig, U. Mennel, M. Wintermantel
+     - HDF5 Composite CAE Data File Specification Release Candidate 1 for stable version 1.0.
    * - Aug 11, 2010
      - Minor updates in "Open Questions", added Section "Specification of Node Names"
-     - O. Koenig, U. Mennel
    * - Aug 30, 2010
      - Upgrade specification to match all issues recently discussed with Vistagy via emails
-     - O. Koenig
    * - Mar 17, 2011
      - Cleanup the document a little
-     - O. Koenig
    * - Oct 17, 2014
      - Adding component_groups and component_group nodes
-     - O. Koenig
    * - June 28, 2019
      - Adding some additional information
-     - R. Roos
    * - January 24, 2020
      - Corrected name for matorient_angles: "mat_orient1_angles" to "matorient_1_angles" and "mat_orient2_angles" to "matorient_2_angles". Defined which fields in data_map are optional and specify what happens if optional nodes are missing. Clarified use of placement_coord_sys
-     - J. von Rickenbach
    * - September 15, 2020
      - Mentioned that global_coord_sys is currently not supported. Correct what happens when matorient_1_angles are not present
-     - J. von Rickenbach
    * - January 26, 2022
      - Mark ``material_data->fabrics->fabric(named)->orientations`` as obsolete
-     - J. von Rickenbach
    * - February 4, 2022
      - Change Href to Softlink for items that have to be linked with a Softlink
-     - J. von Rickenbach
    * - February 8, 2022
-     - Correct datatype for element_labels, element_nodes and element_types (now int)
-
-       - Clarified layer id
-     - J. von Rickenbach
+     - Correct datatype for element_labels, element_nodes and element_types (now int), clarified layer id
    * - February 17, 2022
-     - Clarified units specification
-
-       - Mark optional material properties as optional
-     - J. von Rickenbach
+     - Clarified units specification, Mark optional material properties as optional
    * - May 12, 2022
      - Add optional scalar_user_data data_map property
-     - J. von Rickenbach
    * - May 31, 2022
      - Improved formatting, Removed outdated future plans section. Added missing rosettes in component
-     - J. von Rickenbach
    * - May 22, 2023
      - Improve documentation of node order
-     - J. von Rickenbach
    * - May 15, 2024
      - Complete supported units
-     - J. v. Rickenbach
    * - June 21, 2024
      - Clarified orientation
-     - Jan von Rickenbach
    * - April 14, 2024
      - Some clarifications
-     - R. Roos

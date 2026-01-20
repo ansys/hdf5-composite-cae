@@ -19,6 +19,7 @@ classifiers = [
 
 dependencies = [
     "numpy==2.2.6",
+    "h5py==3.15.1"
 ]
 
 [dependency-groups]
@@ -36,6 +37,8 @@ doc = [
     "numpydoc>1.5.0",
     "ansys-sphinx-theme>0.9.7",
     "sphinx-copybutton>0.5.1",
+    "sphinx_gallery>=0.11.0",
+    "sphinx-design>=0.3.0",
     "pdf2image>=1.17.0",
     "pillow>=12.1.0",
 ]
@@ -43,6 +46,10 @@ doc = [
 
 [tool.flit.module]
 name = "ansys.hdf5_composite_cae"
+
+[project.scripts]
+validate_composite_cae_h5 = "ansys.hdf5_composite_cae.cli:validate"
+show_composite_cae_h5_examples = "ansys.hdf5_composite_cae.cli:show_examples"
 
 [tool.ruff.lint]
 select = [
@@ -71,6 +78,8 @@ ignore = ["E501", "A002"]
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["PT011", "A"]
 
+[tool.flit.sdist]
+include = ["ansys/hdf5_composite_cae/example_files/*"]
 
 [tool.pytest.ini_options]
 log_cli = true
