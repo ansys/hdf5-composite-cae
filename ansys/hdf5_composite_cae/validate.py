@@ -54,6 +54,7 @@ def validate_file(h5_file: Path | str, stop_on_first_error=False):
     stop_on_first_error:
         If True, stops on first error. Otherwise, lists all the errors found in the file.
     """
+    # todo return error if not stop on first error
     raise_error = _raise_error_setup(stop_on_first_error)
     checked_get = _checked_get_setup(stop_on_first_error)
 
