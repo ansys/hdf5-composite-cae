@@ -199,8 +199,3 @@ jobs:
         with:
           library-name: ${{ env.LIBRARY_NAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
-
-
-  oss:
-    uses: ./.github/workflows/oss.yml
-    secrets: inherit

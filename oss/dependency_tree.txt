@@ -1,7 +1,0 @@
-ansys-hdf5-composite-cae v0.1.dev0
-├── h5py v3.15.1
-│   └── numpy v2.2.6
-└── numpy v2.2.6
-pip-licenses v5.5.0
-└── prettytable v3.17.0
-    └── wcwidth v0.2.14
