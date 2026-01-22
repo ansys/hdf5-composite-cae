@@ -10,18 +10,6 @@ import numpy as np
 __all__ = ["create_minimal_h5_file"]
 
 
-class _Element:
-    def __init__(self, center, edge_length, element_coordinate_system=None):
-        self.center = center
-        self.edge_length = edge_length
-        if element_coordinate_system is None:
-            self.element_coordinate_system = _ElementCoordinateSystem(
-                normal=[0, 0, 1], one_direction=[1, 0, 0]
-            )
-        else:
-            self.element_coordinate_system = element_coordinate_system
-
-
 @dataclass
 class _ElementCoordinateSystem:
     normal: list[float]
