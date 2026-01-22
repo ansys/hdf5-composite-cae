@@ -1,13 +1,9 @@
 # Copyright (C) 2026 ANSYS, Inc. and/or its affiliates.
 # Unauthorized use, distribution, or duplication is prohibited.
 
-import logging
 from pathlib import Path
 
 import h5py as h5
-
-logging.basicConfig(level=logging.ERROR, format="%(message)s")
-log = logging.getLogger(__name__)
 
 __all__ = ["validate_file"]
 

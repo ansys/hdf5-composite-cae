@@ -22,7 +22,7 @@ def test_empty():
         filepath = Path(tmpdir) / test_filename
         with h5.File(filepath, "w") as f:
             _ = f.create_group("composite_cae")
-        with pytest.raises(RuntimeError, match="Validation errors"):
+        with pytest.raises(RuntimeError, match="Missing key 'components'"):
             validate_file(filepath)
 
 
