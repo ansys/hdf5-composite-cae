@@ -176,7 +176,7 @@ jobs:
       - name: "Build a wheelhouse of the Python library"
         uses: ansys/actions/build-wheelhouse@v10
         with:
-          library-name: ${{ env.PACKAGE_NAME }}
+          library-name: ${{ env.LIBRARY_NAME }}
           operating-system: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
 
@@ -190,14 +190,14 @@ jobs:
       - name: "Release to the public PyPI repository"
         uses: ansys/actions/release-pypi-public@v10
         with:
-          library-name: ${{ env.PACKAGE_NAME }}
+          library-name: ${{ env.LIBRARY_NAME }}
           twine-username: "__token__"
           twine-token: ${{ secrets.PYPI_TOKEN }}
 
       - name: "Release to GitHub"
         uses: ansys/actions/release-github@v10
         with:
-          library-name: ${{ env.PACKAGE_NAME }}
+          library-name: ${{ env.LIBRARY_NAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
 
