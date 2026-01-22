@@ -21,7 +21,16 @@ def validate():
         help="Abort immediately on the first error",
     )
     args = parser.parse_args()
-    process_file(args.file, args.stop_on_first_error)
+    print("Validating file:", args.file)
+    try:
+        process_file(args.file, args.stop_on_first_error)
+        print(
+            "Validation completed successfully. File is a valid composite CAE h5 file."
+        )
+    except RuntimeError as e:
+        print("Validation failed due to the following error(s) :", str(e))
+        if args.stop_on_first_error:
+            print("Stopping on first error.")
 
 
 def show_examples():

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import h5py as h5
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.ERROR, format="%(message)s")
 log = logging.getLogger(__name__)
 
 __all__ = ["validate_file"]
@@ -20,18 +20,13 @@ class ErrorCollector:
     def checked_get(self, obj, key: str):
         try:
             return obj[key]
-        except Exception as e:
+        except Exception:
             err = f"Missing key '{key}' at {obj.name}"
-
-            if self._throw_on_first_error:
-                raise RuntimeError(err) from e
-            log.error(err)
-            self._errors.append(err)
+            self.raise_error(err)
 
     def raise_error(self, error):
         if self._throw_on_first_error:
             raise RuntimeError(error)
-        log.error(error)
         self._errors.append(error)
 
     def check_softlink(self, f, path: str):
@@ -40,9 +35,9 @@ class ErrorCollector:
         if not isinstance(link, h5.SoftLink):
             self.raise_error(f"{path} needs to be a softlink")
 
-    def raise_accumlated_errors(self):
-        if len(self._errors):
-            raise RuntimeError("Validation errors:\n" + "\n".join(self._errors))
+    def raise_accumulated_errors(self):
+        if len(self._errors) > 0:
+            raise RuntimeError("\n" + "\n".join(self._errors))
 
 
 def validate_file(h5_file: Path | str, stop_on_first_error=False):
@@ -170,4 +165,4 @@ def validate_file(h5_file: Path | str, stop_on_first_error=False):
                         f"Data Map: {data_map.name}: Invalid shape for reference directions. Expected 3 components for reference direction, but got {reference_directions.shape[1]}"
                     )
 
-        error_collector.raise_accumlated_errors()
+    error_collector.raise_accumulated_errors()

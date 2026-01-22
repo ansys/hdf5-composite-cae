@@ -11,7 +11,7 @@ To use the validation capabilities and access the example files, the python pack
 
     # Create virtual environment and activate it
     python -m venv .venv
-    .venv/Scripts/activate.bat # Linux: source .venv/bin/activate
+    .venv\Scripts\activate.bat # Linux: source .venv/bin/activate
 
     # Install package
     pip install ansys-hdf5-composite-cae
