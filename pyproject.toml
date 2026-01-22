@@ -44,7 +44,7 @@ doc = [
     "pillow>=12.1.0",
 ]
 [tool.uv]
-default-groups = ["doc", "dev"]
+default-groups = []
 
 [tool.flit.module]
 name = "ansys.hdf5_composite_cae"
