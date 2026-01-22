@@ -1,0 +1,57 @@
+ansys-hdf5-composite-cae v0.1.dev0
+├── h5py v3.15.1
+│   └── numpy v2.2.6
+└── numpy v2.2.6
+ansys-sphinx-theme v1.6.4
+├── importlib-metadata v8.7.1
+│   └── zipp v3.23.0
+├── jinja2 v3.1.6
+│   └── markupsafe v3.0.3
+├── pdf2image v1.17.0
+│   └── pillow v12.1.0
+├── pydata-sphinx-theme v0.16.1
+│   ├── accessible-pygments v0.0.5
+│   │   └── pygments v2.19.2
+│   ├── babel v2.17.0
+│   ├── beautifulsoup4 v4.14.3
+│   │   ├── soupsieve v2.8.1
+│   │   └── typing-extensions v4.15.0
+│   ├── docutils v0.22.4
+│   ├── pygments v2.19.2
+│   ├── sphinx v9.1.0
+│   │   ├── alabaster v1.0.0
+│   │   ├── babel v2.17.0
+│   │   ├── docutils v0.22.4
+│   │   ├── imagesize v1.4.1
+│   │   ├── jinja2 v3.1.6 (*)
+│   │   ├── packaging v25.0
+│   │   ├── pygments v2.19.2
+│   │   ├── requests v2.32.5
+│   │   │   ├── certifi v2026.1.4
+│   │   │   ├── charset-normalizer v3.4.4
+│   │   │   ├── idna v3.11
+│   │   │   └── urllib3 v2.6.3
+│   │   ├── roman-numerals v4.1.0
+│   │   ├── snowballstemmer v3.0.1
+│   │   ├── sphinxcontrib-applehelp v2.0.0
+│   │   ├── sphinxcontrib-devhelp v2.0.0
+│   │   ├── sphinxcontrib-htmlhelp v2.1.0
+│   │   ├── sphinxcontrib-jsmath v1.0.1
+│   │   ├── sphinxcontrib-qthelp v2.0.0
+│   │   └── sphinxcontrib-serializinghtml v2.0.0
+│   └── typing-extensions v4.15.0
+├── pyyaml v6.0.3
+└── sphinx v9.1.0 (*)
+numpydoc v1.10.0
+└── sphinx v9.1.0 (*)
+pip-licenses v5.5.0
+└── prettytable v3.17.0
+    └── wcwidth v0.2.14
+sphinx-copybutton v0.5.2
+└── sphinx v9.1.0 (*)
+sphinx-design v0.7.0
+└── sphinx v9.1.0 (*)
+sphinx-gallery v0.20.0
+├── pillow v12.1.0
+└── sphinx v9.1.0 (*)
+(*) Package tree already displayed
