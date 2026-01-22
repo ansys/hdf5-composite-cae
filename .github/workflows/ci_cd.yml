@@ -176,7 +176,7 @@ jobs:
       - name: "Build a wheelhouse of the Python library"
         uses: ansys/actions/build-wheelhouse@v10
         with:
-          library-name: "ansys-dpf-composites"
+          library-name: ${{ env.PACKAGE_NAME }}
           operating-system: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
 
