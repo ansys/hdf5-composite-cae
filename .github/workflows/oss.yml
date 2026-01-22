@@ -55,8 +55,7 @@ jobs:
           add: oss/dependencies.json oss/legal_notices.txt oss/dependency_tree.txt
           default_author: github_actions
           message: 'Automatic update of OSS dependencies'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
