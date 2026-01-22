@@ -9,7 +9,7 @@ on:
 
 env:
   MAIN_PYTHON_VERSION: '3.12'
-  DOCUMENTATION_CNAME: 'hdf5_composite_cae.docs.pyansys.com'
+  DOCUMENTATION_CNAME: 'hdf5-composite-cae.docs.pyansys.com'
   LIBRARY_NAME: 'ansys-hdf5-composite-cae'
 
 concurrency:
@@ -71,7 +71,7 @@ jobs:
 
       - name: "Run tests"
         run: | 
-          uv run pytest
+          uv run pytest --cov=ansys.hdf5_composite_cae --cov-report=term --cov-report=xml --cov-report=html --cov-append
 
   doc-build:
     name: "Build documentation"
@@ -165,3 +165,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
 
+  oss:
+    uses: ./.github/workflows/oss.yml
+    secrets: inherit

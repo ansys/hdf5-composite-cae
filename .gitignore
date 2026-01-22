@@ -160,3 +160,4 @@ cython_debug/
 
 # doc build folder
 _build
+doc/source/_autosummary

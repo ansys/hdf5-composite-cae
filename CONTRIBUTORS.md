@@ -2,8 +2,8 @@
 
 ## Project Lead or Owner
 
-* [First Last]()
+* [Jan von Rickenbach](https://github.com/janvonrickenbach)
 
 ## Individual Contributors
 
-* [First Last]()
+* [Roberto Pastor Muela](https://github.com/RobPasMue)

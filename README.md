@@ -14,7 +14,7 @@ uv venv --python 3.12.9
 Install the `ansys.hdf5_composite_cae` package in editable mode with all dev dependencies
 
 ```
-uv sync
+uv sync --all-extras
 ```
 
 Build documentation:
