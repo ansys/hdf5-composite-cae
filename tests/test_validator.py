@@ -2,6 +2,7 @@ import tempfile
 from pathlib import Path
 
 import h5py as h5
+import pytest
 
 from ansys.hdf5_composite_cae.file_creation import create_minimal_h5_file
 from ansys.hdf5_composite_cae.validate import validate_file
@@ -21,7 +22,8 @@ def test_empty():
         filepath = Path(tmpdir) / test_filename
         with h5.File(filepath, "w") as f:
             _ = f.create_group("composite_cae")
-        validate_file(filepath)
+        with pytest.raises(RuntimeError, match="Validation errors"):
+            validate_file(filepath)
 
 
 def test_validator_winding():

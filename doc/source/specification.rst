@@ -304,6 +304,8 @@ Currently the following element types are defined:
 - **6:** 6 node shell
 - **8:** 8 node shell
 
+
+
 The list of element types might be expanded in the future, for example using 108 and 120 for 8 and 20 node bricks.
 
 meshes->mesh(named)->element_nodes
@@ -323,6 +325,14 @@ The order of the nodes must correspond to the following indices:
 - 4 nodes (linear rectangle): I, J, K, L
 - 6 nodes (quadratic triangle): I, J, K, M, N, P
 - 8 nodes (quadratic rectangle): I, J, K, L, M, N, O, P
+
+.. figure:: _static/elements.png
+   :target: _static/elements.png
+   :alt: Element Types
+   :width: 400px
+   :align: center
+
+   Click to view full size
 
 .. note::
    Here a VLArray data set is used since the mesh can contain element of different types (refer to ``meshes->mesh(named)->element_types``)
