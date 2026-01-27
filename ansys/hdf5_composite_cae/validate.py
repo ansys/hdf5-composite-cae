@@ -114,7 +114,7 @@ def validate_file(h5_file: Path | str, stop_on_first_error=False):
                         error_collector.raise_error(
                             f"Mesh: {mesh.name}: element nodes has an invalid shape: {all_element_nodes.shape}. Should be ({n_elements}), ({n_elements}, ) or ({n_elements}, 1)"
                         )
-                
+
                 max_node_index = 0
                 for element_index, element_nodes in enumerate(all_element_nodes):
                     if len(element_nodes) not in [3, 4, 6, 8]:
@@ -180,4 +180,4 @@ def validate_file(h5_file: Path | str, stop_on_first_error=False):
                     )
 
         error_collector.raise_accumlated_errors()
-        print(f"Validation passed without error.")
+        print("Validation passed without error.")
