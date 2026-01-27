@@ -180,4 +180,4 @@ def validate_file(h5_file: Path | str, stop_on_first_error=False):
                     )
 
         error_collector.raise_accumlated_errors()
-        print(f"Validation passed with no errors.")
+        print(f"Validation passed without error.")
