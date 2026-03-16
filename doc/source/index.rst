@@ -1,11 +1,11 @@
 =========================
-HDF5 Composite CAE Format
+HDF5 composite CAE format
 =========================
 
-This python package provides documentation as well as python tools to work with the HDF5 Composite CAE format. The specification
-of the format can be found here :ref:`specification`.
+This Python package provides both documentation and Python tools to work with the HDF5 composite CAE format. For information on 
+the format’s specifications, see :ref:`specification`.
 
-To use the validation capabilities and access the example files, the python package needs to be installed with:
+You can access the example files and validation capabilities by installing the Python package with:
 
 .. code::
 
@@ -16,29 +16,26 @@ To use the validation capabilities and access the example files, the python pack
     # Install package
     pip install ansys-hdf5-composite-cae
 
-This installs a command line tool ``validate_composite_cae_h5`` which can be used to check if a given h5 file conforms to the specification.
-
+The package contains a command-line tool ``validate_composite_cae_h5`` which checks if a H5 file conforms to the specification.
 
 .. code::
 
     validate_composite_cae_h5 my_h5_file.h5
 
-
-The package comes with a number of example h5 files. The following command shows the location of the example files in your installation:
-
+The package also contains multiple example H5 files. This command shows the location of the example files in your installation:
 
 .. code::
 
     show_composite_cae_h5_examples
 
-Move to the shown location to inspect and use the example files.
+You can move to the location shown to inspect and use the example files.
 
 .. note::
-    Since hdf5 is a binary format, you need a viewer to look at the file which you can find here:
+    HDF5 is a binary file format, so you need a viewer to open it. You can download one here:
 
     https://www.hdfgroup.org/download-hdfview/
 
-Click below to access the specification and the API reference of the module.
+Click the cards below to see the specifications and API reference.
 
 .. grid:: 1 1 1 2
     :gutter: 2
@@ -47,7 +44,7 @@ Click below to access the specification and the API reference of the module.
         :link: specification
         :link-type: doc
 
-        Contains the Specification of the Composite CAE H5 format
+        Describes the specifications of the Composite CAE H5 format.
 
     .. grid-item-card:: :octicon:`code` API reference
         :link: api

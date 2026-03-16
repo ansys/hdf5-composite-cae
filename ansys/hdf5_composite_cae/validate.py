@@ -46,7 +46,7 @@ class ErrorCollector:
 
 
 def validate_file(h5_file: Path | str, stop_on_first_error=False):
-    """Validates a composite_cae hdf5 file.
+    """Validates a composite_cae HDF5 file.
 
     Throws an exception on the first error if `stop_on_first_error` is true. Otherwise, prints
     the errors to the console.

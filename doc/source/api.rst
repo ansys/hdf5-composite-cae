@@ -3,7 +3,7 @@
 API reference
 =============
 
-This section documents the API to validate and create Composite CAE H5 files.
+This API validates and creates composite CAE H5 files.
 
 .. module:: ansys.hdf5_composite_cae
 

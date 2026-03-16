@@ -146,7 +146,7 @@ def _create_material(fabrics, thickness=0.1):
 
 
 def create_minimal_h5_file(file_path: str):
-    """Creates a minimal composite_cae hdf5 file.
+    """Creates a minimal composite_cae HDF5 file.
 
 
     Parameters
