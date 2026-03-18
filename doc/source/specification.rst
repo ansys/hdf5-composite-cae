@@ -490,7 +490,7 @@ data_maps->data_map(named)->normals
 
 n by 3 array of doubles (optional).
 
-Defines the normal directions using absolute direction vectors. If present, these vectores can be used to project the reference direction onto the plane defined by the normal.
+Defines the normal directions using absolute direction vectors. If present, these vectors can be used to project the reference direction onto the plane defined by the normal.
 
 data_maps->data_map(named)->matorient_1_angles
 ----------------------------------------------
