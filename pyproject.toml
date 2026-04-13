@@ -37,7 +37,7 @@ doc = [
     "sphinx_gallery>=0.11.0",
     "sphinx-design>=0.3.0",
     "pdf2image>=1.17.0",
-    "pillow>=12.1.0",
+    "pillow>=12.2.0",
 ]
 [tool.uv]
 default-groups = []
