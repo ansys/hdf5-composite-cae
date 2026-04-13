@@ -32,7 +32,7 @@ dev = [
 doc = [
     "Sphinx>8.0.0",
     "numpydoc>1.5.0",
-    "ansys-sphinx-theme>0.9.7",
+    "ansys-sphinx-theme>=1.7.2",
     "sphinx-copybutton>0.5.1",
     "sphinx_gallery>=0.11.0",
     "sphinx-design>=0.3.0",
