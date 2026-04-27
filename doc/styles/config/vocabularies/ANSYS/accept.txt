@@ -13,6 +13,7 @@ Docker
 DPF
 dpf
 perl
+Perl
 composite_cae
 datestring
 lbf
@@ -33,6 +34,7 @@ element_types
 scalar_user_data
 element_nodes
 edge_set
+node_labels
 component_group
 Koenig
 Mennel
