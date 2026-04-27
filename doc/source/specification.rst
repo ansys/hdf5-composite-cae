@@ -72,7 +72,7 @@ Node names must be unique within each group.
 General comments
 -----------------
 
-All string attributes is UTF-8 encoding.
+All string attributes use UTF-8 encoding.
 
 
 Root level nodes
