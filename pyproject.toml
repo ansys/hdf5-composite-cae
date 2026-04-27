@@ -45,6 +45,9 @@ default-groups = []
 [tool.flit.module]
 name = "ansys.hdf5_composite_cae"
 
+[tool.flit.sdist]
+include = ["src/ansys/hdf5_composite_cae/example_files/*"]
+
 [project.scripts]
 validate_composite_cae_h5 = "ansys.hdf5_composite_cae.cli:validate"
 show_composite_cae_h5_examples = "ansys.hdf5_composite_cae.cli:show_examples"
@@ -76,8 +79,6 @@ ignore = ["E501", "A002"]
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["PT011", "A"]
 
-[tool.flit.sdist]
-include = ["ansys/hdf5_composite_cae/example_files/*"]
 
 [tool.pytest.ini_options]
 log_cli = true

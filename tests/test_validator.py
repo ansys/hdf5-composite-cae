@@ -1,3 +1,6 @@
+# Copyright (C) 2026 ANSYS, Inc. and/or its affiliates.
+# Unauthorized use, distribution, or duplication is prohibited.
+
 import tempfile
 from pathlib import Path
 
@@ -27,10 +30,10 @@ def test_empty():
 
 
 def test_validator_winding():
-    test_filename = "ansys/hdf5_composite_cae/example_files/winding_example.h5"
+    test_filename = "src/ansys/hdf5_composite_cae/example_files/winding_example.h5"
     validate_file(test_filename, True)
 
 
 def test_validator_3d_print():
-    test_filename = "ansys/hdf5_composite_cae/example_files/example_3D_print.h5"
+    test_filename = "src/ansys/hdf5_composite_cae/example_files/example_3D_print.h5"
     validate_file(test_filename, True)
