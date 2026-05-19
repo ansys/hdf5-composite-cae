@@ -67,7 +67,7 @@ jobs:
 
       - name: "Install Python dependencies"
         run: |
-          uv sync --group dev
+          uv sync --all-groups
 
       - name: "Run tests"
         run: | 
