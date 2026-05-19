@@ -14,7 +14,7 @@ repos:
   rev: v2.4.1
   hooks:
   - id: codespell
-    args: [-I, .codespellignore]
+    args: ["--ignore-words", "doc/styles/config/vocabularies/ANSYS/accept.txt"]
     exclude: >
       (?x)^(
           tests/data/basic_contact/ds.dat|
