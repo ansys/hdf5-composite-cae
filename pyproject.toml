@@ -12,8 +12,14 @@ requires-python = ">=3.10,<3.14"
 maintainers = [{ name = "ANSYS, Inc."}]
 readme = "README.rst"
 classifiers = [
-    "Programming Language :: Python :: 3",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Information Analysis",
     "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
     "numpy==2.2.6",
@@ -24,9 +30,12 @@ dependencies = [
 Repository = "https://github.com/ansys-internal/hdf5-composite-cae"
 
 [dependency-groups]
-dev = [
+tests = [
     "pytest==9.0.2",
     "pytest-cov",
+]
+
+dev = [
     "pre-commit==4.5.1",
 ]
 
@@ -39,6 +48,7 @@ doc = [
     "sphinx-design>=0.3.0",
     "pdf2image>=1.17.0",
     "pillow>=12.1.0",
+    "towncrier>=23.11.0",
 ]
 [tool.uv]
 default-groups = []
@@ -91,3 +101,53 @@ filterwarnings = [
     "ignore::DeprecationWarning",
 ]
 junit_family = "xunit2"
+
+[tool.towncrier]
+package = "ansys.hdf5_composite_cae"
+directory = "doc/changelog.d"
+filename = "CHANGELOG.md"
+start_string = "<!-- towncrier release notes start -->\n"
+underlines = ["", "", ""]
+template = "doc/changelog.d/changelog_template.jinja"
+title_format = "## [{version}](https://github.com/ansys/hdf5-composite-cae/releases/tag/v{version}) - {project_date}"
+issue_format = "[#{issue}](https://github.com/ansys/hdf5-composite-cae/pull/{issue})"
+
+[[tool.towncrier.type]]
+directory = "breaking"
+name = "Breaking"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "added"
+name = "Added"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "fixed"
+name = "Fixed"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "dependencies"
+name = "Dependencies"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "documentation"
+name = "Documentation"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "maintenance"
+name = "Maintenance"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "test"
+name = "Test"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "miscellaneous"
+name = "Miscellaneous"
+showcontent = true

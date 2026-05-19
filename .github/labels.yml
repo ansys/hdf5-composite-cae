@@ -2,6 +2,10 @@
   description: Something isn't working
   color: d42a34
 
+- name: changelog
+  description: Changelog fragment required
+  color: bfd4f2
+
 - name: dependencies
   description: Related with project dependencies
   color: ffc0cb
