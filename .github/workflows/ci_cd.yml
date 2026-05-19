@@ -102,7 +102,7 @@ jobs:
 
       - name: "Build doc"
         run: | 
-          python3 build.py build_doc
+          python3 scripts/build.py build_doc
 
       - name: "Upload HTML Documentation"
         uses: actions/upload-artifact@v4
