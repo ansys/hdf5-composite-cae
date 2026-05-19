@@ -194,14 +194,14 @@ jobs:
     steps:
 
       - name: "Release to the public PyPI repository"
-        uses: ansys/actions/release-pypi-public@v10
+        uses: ansys/actions/release-pypi-public@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
         with:
           library-name: ${{ env.LIBRARY_NAME }}
           twine-username: "__token__"
           twine-token: ${{ secrets.PYPI_TOKEN }}
 
       - name: "Release to GitHub"
-        uses: ansys/actions/release-github@v10
+        uses: ansys/actions/release-github@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
         with:
           library-name: ${{ env.LIBRARY_NAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
