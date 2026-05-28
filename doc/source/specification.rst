@@ -1,4 +1,5 @@
 .. _specification:
+
 ===================================
 HDF5 composite CAE specifications
 ===================================
@@ -8,7 +9,8 @@ The key layup concepts are:
 
 * **Mesh**: You store geometrical information on the mesh, which consists of nodes and elements.
 * **Component**: A component represents a layer. Each component references a data_map and the mesh.
-* **Data map**: The data_map stores the geometrical information associated with each element or node in the mesh. 
+* **Data map**: The data_map stores the geometrical information associated with each element or node in the mesh.
+
 This includes thickness, reference direction, and fiber direction.
 
 .. note::
@@ -124,7 +126,7 @@ For example, if ``unit_system`` is set to "SI" and ``length_unit`` is "mm," the 
 composite_cae->global_coord_sys
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-4 by 3 array of doubles that defines the origin and its directions for the entire model. 
+4 by 3 array of doubles that defines the origin and its directions for the entire model.
 
 .. code-block:: text
 
@@ -379,7 +381,7 @@ Attributes:
      -
 
 .. note::
-   The mapping_type attribute is optional and will be detailed later; because ACP can use multiple rosettes 
+   The mapping_type attribute is optional and will be detailed later; because ACP can use multiple rosettes
    to define a ply's reference direction, several mapping types are defined, including interpolation algorithms such as "minimum distance" and "minimum angle."
 
 components->component(named)->placement_coord_sys
@@ -454,8 +456,8 @@ Attributes:
      -
 
 .. note::
-   The possible values of the rosette mapping_type are not yet specified. FiberSIM defines the mapping types "translational," "standard," and "rotational." 
-   ACP defines the standard rosette types "parallel," "radial," "cylindrical," and "spherical." The exact definition of this attribute has been postponed 
+   The possible values of the rosette mapping_type are not yet specified. FiberSIM defines the mapping types "translational," "standard," and "rotational."
+   ACP defines the standard rosette types "parallel," "radial," "cylindrical," and "spherical." The exact definition of this attribute has been postponed
    because this information is optional and is not required to map the ply orientation field correctly.
 
 rosettes->rosette(named)->coord_sys
@@ -593,3 +595,4 @@ Change log
      - Clarified orientation
    * - April 14, 2024
      - Some clarifications
+

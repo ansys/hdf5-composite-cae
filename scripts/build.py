@@ -1,9 +1,8 @@
 import argparse
 import sys
 
+from logger import log
 from sphinx.cmd.build import main as build_main
-
-from build_tools.logger import log
 
 
 def build_doc(config):

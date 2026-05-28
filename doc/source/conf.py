@@ -29,7 +29,7 @@ html_theme_options = {
         "version_match": switcher_version,
     },
     "check_switcher": False,
-    "github_url": "https://github.com/ansys/ansys-tools-visualization-interface",
+    "github_url": "https://github.com/ansys/hdf5-composite-cae",
     "show_prev_next": False,
     "show_breadcrumbs": True,
     "collapse_navigation": True,
@@ -40,12 +40,12 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "Support",
-            "url": "https://github.com/ansys/ansys-tools-visualization-interface/discussions",
+            "url": "https://github.com/ansys/hdf5-composite-cae/discussions",
             "icon": "fa fa-comment fa-fw",
         },
         {
             "name": "Download documentation in PDF",
-            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-tools-visualization-interface.pdf",  # noqa: E501
+            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-hdf5-composite-cae.pdf",  # noqa: E501
             "icon": "fa fa-file-pdf fa-fw",
         },
     ],
@@ -54,6 +54,12 @@ html_theme_options = {
     },
 }
 
+html_context = {
+    "github_user": "ansys",
+    "github_repo": "hdf5-composite-cae",
+    "github_version": "main",
+    "doc_path": "doc/source",
+}
 
 # Sphinx extensions
 extensions = [

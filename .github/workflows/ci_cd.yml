@@ -8,7 +8,7 @@ on:
       - main
 
 env:
-  MAIN_PYTHON_VERSION: '3.12'
+  MAIN_PYTHON_VERSION: '3.14'
   DOCUMENTATION_CNAME: 'hdf5-composite-cae.docs.pyansys.com'
   LIBRARY_NAME: 'ansys-hdf5-composite-cae'
 
@@ -70,7 +70,7 @@ jobs:
           uv sync --all-groups
 
       - name: "Run tests"
-        run: | 
+        run: |
           uv run pytest --cov=ansys.hdf5_composite_cae --cov-report=term --cov-report=xml --cov-report=html --cov-append
 
   doc-build:
@@ -101,7 +101,7 @@ jobs:
           uv sync --group doc
 
       - name: "Build doc"
-        run: | 
+        run: |
           python3 scripts/build.py build_doc
 
       - name: "Upload HTML Documentation"
@@ -176,7 +176,7 @@ jobs:
     strategy:
       matrix:
           os: [ubuntu-latest, windows-latest]
-          python-version: ['3.10', '3.11', '3.12', '3.13']
+          python-version: ['3.10', '3.11', '3.12', '3.13','3.14']
     steps:
       - name: "Build a wheelhouse of the Python library"
         uses: ansys/actions/build-wheelhouse@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
