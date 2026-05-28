@@ -12,7 +12,7 @@ requires-python = ">=3.10,<3.15"
 maintainers = [{ name = "ANSYS, Inc."}]
 readme = "README.rst"
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable ",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Information Analysis",
     "Operating System :: OS Independent",
