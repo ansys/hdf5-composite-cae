@@ -4,7 +4,7 @@
 Contribute
 **********
 
-Thank you for your interest in contributing to the HDF5 Composite CAE project!
+Thank you for your interest in contributing to the HDF5 Composite CAE project.
 
 Contribution guidelines
 =======================
@@ -112,7 +112,7 @@ Have an idea for a new feature? Open an issue describing:
 Code contributions
 ------------------
 
-Code contributions are welcome! Please:
+Code contributions are welcome. Please:
 
 - Follow the code style guidelines
 - Add tests for new functionality
@@ -144,5 +144,5 @@ License
 By contributing to this project, you agree that your contributions will be licensed
 under the same license as the project (MIT License).
 
-Thank you for contributing!
+Thank you for contributing.
 
