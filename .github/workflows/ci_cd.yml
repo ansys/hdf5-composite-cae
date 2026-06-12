@@ -40,7 +40,7 @@ jobs:
     name: "Documentation style"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/doc-style@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
+      - uses: ansys/actions/doc-style@12ca08fd7f0caa52076cca15c5621482646f8560 # v10.3.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -217,24 +217,15 @@ jobs:
     name: Vulnerabilities
     runs-on: ubuntu-latest
     steps:
-      - name: PyAnsys Vulnerability check (on main)
-        if: github.ref == 'refs/heads/main'
-        uses: ansys/actions/check-vulnerabilities@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
+      - name: PyAnsys Vulnerability check
+        uses: ansys/actions/check-vulnerabilities@d946b24b9a765f4169bcc94afdb27bd1a0533741 # v10.3.2
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          python-package-name: ${{ env.PACKAGE_NAME }}
+          python-package-name: ${{ env.LIBRARY_NAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          upload-reports: true
+          dev-mode: ${{ github.ref != 'refs/heads/main' }}
           hide-log: false
 
-      - name: PyAnsys Vulnerability check (on dev mode)
-        if: github.ref != 'refs/heads/main'
-        uses: ansys/actions/check-vulnerabilities@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          python-package-name: ${{ env.PACKAGE_NAME }}
-          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          dev-mode: true
 
   check-pr-title:
     name: "Check pull-request title follows conventional commits"
