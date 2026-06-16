@@ -1,13 +1,13 @@
 import argparse
+import subprocess
 import sys
 
 from logger import log
-from sphinx.cmd.build import main as build_main
 
 
 def build_doc(config):
     """Build Sphinx documentation."""
-    build_main(["-b", "html", "doc/source", "./_build/html", "--color", "-vW"])
+    subprocess.run("make.bat html", cwd="doc", shell=True, check=False)
 
 
 def get_build_steps():
