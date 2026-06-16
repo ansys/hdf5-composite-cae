@@ -1,4 +1,4 @@
-# Contributing 
+# Contributing
 
 Please, refer to the [PyAnsys Developer's Guide] for contributing to this project.
 

@@ -1,5 +1,24 @@
 # Copyright (C) 2026 ANSYS, Inc. and/or its affiliates.
-# Unauthorized use, distribution, or duplication is prohibited.
+# SPDX-License-Identifier: MIT
+#
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 from collections import namedtuple
 from dataclasses import dataclass
@@ -12,17 +31,50 @@ __all__ = ["create_minimal_h5_file"]
 
 @dataclass
 class _ElementCoordinateSystem:
+    """Element coordinate system definition.
+
+    Attributes
+    ----------
+    normal : list[float]
+        Normal vector of the element coordinate system.
+    one_direction : list[float]
+        Primary direction vector of the element coordinate system.
+    """
+
     normal: list[float]
     one_direction: list[float]
 
 
 @dataclass
 class _MeshInfo:
+    """Mesh information container.
+
+    Attributes
+    ----------
+    element_set : any
+        The element set dataset.
+    n_elements : any
+        Number of elements in the mesh.
+    """
+
     element_set: any
     n_elements: any
 
 
 def _get_element_nodes(element):
+    """Calculate node coordinates for a quadrilateral element.
+
+    Parameters
+    ----------
+    element : namedtuple
+        Element with 'center' and 'edge_length' attributes, and optionally
+        'element_coordinate_system' attribute containing normal and one_direction.
+
+    Returns
+    -------
+    np.ndarray
+        Array of shape (4, 3) containing the coordinates of the four corner nodes.
+    """
     distance_from_center = element.edge_length / 2.0
     center = np.array(element.center)
     if hasattr(element, "element_coordinate_system"):
@@ -45,6 +97,25 @@ def _get_element_nodes(element):
 
 
 def _create_mesh_data_set_with_single_element_set(root, elements, mesh_name="mesh0"):
+    """Create a mesh dataset with a single element set in the HDF5 file.
+
+    Creates mesh data including element labels, element nodes, element types,
+    node labels, node coordinates, and an element set containing all elements.
+
+    Parameters
+    ----------
+    root : h5py.Group
+        Root group in the HDF5 file where the mesh will be created.
+    elements : list
+        List of element objects, each with 'center' and 'edge_length' attributes.
+    mesh_name : str, optional
+        Name for the mesh group. Default is "mesh0".
+
+    Returns
+    -------
+    _MeshInfo
+        Named tuple containing the element_set and n_elements.
+    """
     meshes = root.create_group("meshes")
 
     nodes_per_element = 4
@@ -81,6 +152,27 @@ def _create_mesh_data_set_with_single_element_set(root, elements, mesh_name="mes
 def _create_single_component_linked_to_element_set(
     root, element_set_path, data_map_path, ply_angle=0.0
 ):
+    """Create a component linked to an element set and data map.
+
+    Creates a component group with soft links to the specified element set
+    and data map, and sets the ply orientation angle.
+
+    Parameters
+    ----------
+    root : h5py.Group
+        Root group in the HDF5 file where the component will be created.
+    element_set_path : str
+        HDF5 path to the element set to link to.
+    data_map_path : str
+        HDF5 path to the data map to link to.
+    ply_angle : float, optional
+        Ply orientation angle in degrees. Default is 0.0.
+
+    Returns
+    -------
+    h5py.Group
+        The created component group.
+    """
     components = root.create_group("components")
     component = components.create_group("component0")
     component["element_set"] = h5.SoftLink(element_set_path)
@@ -90,6 +182,22 @@ def _create_single_component_linked_to_element_set(
 
 
 def _create_single_data_map_linked_to_element_set(root, element_set_path):
+    """Create a data map linked to an element set.
+
+    Creates a data map group with a soft link to the specified element set.
+
+    Parameters
+    ----------
+    root : h5py.Group
+        Root group in the HDF5 file where the data map will be created.
+    element_set_path : str
+        HDF5 path to the element set to link to.
+
+    Returns
+    -------
+    h5py.Group
+        The created data map group.
+    """
     data_maps = root.create_group("data_maps")
     data_map = data_maps.create_group("data_map0")
     data_map["element_set"] = h5.SoftLink(element_set_path)
@@ -97,6 +205,23 @@ def _create_single_data_map_linked_to_element_set(root, element_set_path):
 
 
 def _create_single_rosette(root, coordinate_system=None):
+    """Create a rosette with a coordinate system definition.
+
+    Creates a rosette group containing a coordinate system dataset.
+
+    Parameters
+    ----------
+    root : h5py.Group
+        Root group in the HDF5 file where the rosette will be created.
+    coordinate_system : list of list of float, optional
+        Coordinate system definition as a 4x3 array representing origin and
+        three axis directions. Default is identity at origin [[0,0,0], [1,0,0], [0,1,0], [0,0,1]].
+
+    Returns
+    -------
+    h5py.Group
+        The created rosette group.
+    """
     if coordinate_system is None:
         coordinate_system = [
             [0.0, 0.0, 0.0],
@@ -111,13 +236,43 @@ def _create_single_rosette(root, coordinate_system=None):
 
 
 def _get_fixed_size_string(string):
-    # ACP fails to read variable length strings
-    # This is a workaround to create fixed size strings which are correctly
-    # supported by ACP
+    """Convert a string to a fixed-size NumPy string array.
+
+    ACP fails to read variable length strings. This is a workaround to create
+    fixed size strings which are correctly supported by ACP.
+
+    Parameters
+    ----------
+    string : str
+        The string to convert.
+
+    Returns
+    -------
+    np.ndarray
+        Fixed-size string array compatible with ACP.
+    """
     return np.array(string, dtype="S" + str(len(string)))
 
 
 def _create_material(fabrics, thickness=0.1):
+    """Create a material (fabric) with default structural steel properties.
+
+    Creates a fabric group with cost and mechanical property attributes,
+    including elastic moduli, shear moduli, Poisson's ratios, thermal
+    expansion coefficients, and other material parameters.
+
+    Parameters
+    ----------
+    fabrics : h5py.Group
+        Fabrics group where the material will be created.
+    thickness : float, optional
+        Cured thickness of the material. Default is 0.1.
+
+    Returns
+    -------
+    h5py.Group
+        The created fabric group.
+    """
     fabric = fabrics.create_group("fabric1")
     fabric.attrs["TITLE"] = _get_fixed_size_string("Structural Steel")
 

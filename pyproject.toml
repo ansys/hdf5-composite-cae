@@ -8,24 +8,35 @@ version = "0.1.dev0"
 description = "A utility library for the hdf5 composite cae format"
 license = "MIT"
 authors = [{ name = "ANSYS, Inc."}]
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.10,<3.15"
 maintainers = [{ name = "ANSYS, Inc."}]
-readme = "README.md"
-repository = "https://github.com/ansys-internal/hdf5-composite-cae"
+readme = "README.rst"
 classifiers = [
-    "Programming Language :: Python :: 3",
+    "Development Status :: 5 - Production/Stable ",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Information Analysis",
     "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "numpy>=1.22",
+    "h5py>=3.0"
 ]
 
-dependencies = [
-    "numpy==2.2.6",
-    "h5py==3.15.1"
-]
+[project.urls]
+Repository = "https://github.com/ansys-internal/hdf5-composite-cae"
 
 [dependency-groups]
-dev = [
+tests = [
     "pytest==9.0.2",
     "pytest-cov",
+]
+
+dev = [
     "pre-commit==4.5.1",
 ]
 
@@ -38,6 +49,7 @@ doc = [
     "sphinx-design>=0.3.0",
     "pdf2image>=1.17.0",
     "pillow>=12.1.0",
+    "towncrier>=23.11.0",
 ]
 [tool.uv]
 default-groups = []
@@ -45,9 +57,13 @@ default-groups = []
 [tool.flit.module]
 name = "ansys.hdf5_composite_cae"
 
+[tool.flit.sdist]
+include = ["src/ansys/hdf5_composite_cae/example_files/*"]
+
 [project.scripts]
 validate_composite_cae_h5 = "ansys.hdf5_composite_cae.cli:validate"
 show_composite_cae_h5_examples = "ansys.hdf5_composite_cae.cli:show_examples"
+create_minimal_file = "ansys.hdf5_composite_cae.cli:create_minimal_file"
 
 [tool.ruff.lint]
 select = [
@@ -76,16 +92,65 @@ ignore = ["E501", "A002"]
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["PT011", "A"]
 
-[tool.flit.sdist]
-include = ["ansys/hdf5_composite_cae/example_files/*"]
-
 [tool.pytest.ini_options]
 log_cli = true
 log_cli_level = "INFO"
 log_cli_format = "[%(asctime)s | %(levelname)s] %(message)s (%(filename)s:%(lineno)s)"
 log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+addopts = "--cov=ansys.hdf5_composite_cae --cov-report=term --cov-report=xml --cov-report=html --cov-append"
+
 
 filterwarnings = [
     "ignore::DeprecationWarning",
 ]
 junit_family = "xunit2"
+
+[tool.towncrier]
+package = "ansys.hdf5_composite_cae"
+directory = "doc/changelog.d"
+filename = "CHANGELOG.md"
+start_string = "<!-- towncrier release notes start -->\n"
+underlines = ["", "", ""]
+template = "doc/changelog.d/changelog_template.jinja"
+title_format = "## [{version}](https://github.com/ansys/hdf5-composite-cae/releases/tag/v{version}) - {project_date}"
+issue_format = "[#{issue}](https://github.com/ansys/hdf5-composite-cae/pull/{issue})"
+
+[[tool.towncrier.type]]
+directory = "breaking"
+name = "Breaking"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "added"
+name = "Added"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "fixed"
+name = "Fixed"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "documentation"
+name = "Documentation"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "dependencies"
+name = "Dependencies"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "maintenance"
+name = "Maintenance"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "miscellaneous"
+name = "Miscellaneous"
+showcontent = true
+[[tool.towncrier.type]]
+directory = "test"
+name = "Test"
+showcontent = true
+

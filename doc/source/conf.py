@@ -13,6 +13,7 @@ project = "ansys-hdf5-composite-cae-library"
 copyr = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
+switcher_version = get_version_match(__version__)
 cname = os.getenv("DOCUMENTATION_CNAME", "docs.pyansys.com")
 
 # Select desired logo, theme, and declare the html title
@@ -22,17 +23,42 @@ html_short_title = html_title = "pyhdf5-composite-cae-library"
 
 # specify the location of your github repo
 html_theme_options = {
-    "github_url": "https://github.com/ansys-internal/hdf5-composite-cae",
+    "logo": "pyansys",
+    "switcher": {
+        "json_url": f"https://{cname}/versions.json",
+        "version_match": switcher_version,
+    },
+    "check_switcher": False,
+    "github_url": "https://github.com/ansys/hdf5-composite-cae",
     "show_prev_next": False,
     "show_breadcrumbs": True,
+    "collapse_navigation": True,
+    "use_edit_page_button": True,
     "additional_breadcrumbs": [
         ("PyAnsys", "https://docs.pyansys.com/"),
     ],
-    "switcher": {
-        "json_url": f"https://{cname}/versions.json",
-        "version_match": get_version_match(__version__),
+    "icon_links": [
+        {
+            "name": "Support",
+            "url": "https://github.com/ansys/hdf5-composite-cae/discussions",
+            "icon": "fa fa-comment fa-fw",
+        },
+        {
+            "name": "Download documentation in PDF",
+            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-hdf5-composite-cae.pdf",  # noqa: E501
+            "icon": "fa fa-file-pdf fa-fw",
+        },
+    ],
+    "ansys_sphinx_theme_autoapi": {
+        "project": project,
     },
-    "check_switcher": False,
+}
+
+html_context = {
+    "github_user": "ansys",
+    "github_repo": "hdf5-composite-cae",
+    "github_version": "main",
+    "doc_path": "doc/source",
 }
 
 # Sphinx extensions
