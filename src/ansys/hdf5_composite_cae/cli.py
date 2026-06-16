@@ -24,6 +24,7 @@ import argparse
 from importlib import resources
 from pathlib import Path
 
+from ansys.hdf5_composite_cae import create_minimal_h5_file
 from ansys.hdf5_composite_cae.validate import validate_file
 
 
@@ -76,3 +77,16 @@ def show_examples():
     parser = argparse.ArgumentParser(description="Show location of example files")
     _ = parser.parse_args()
     print(resources.files("ansys.hdf5_composite_cae").joinpath("example_files"))
+
+
+def create_minimal_file():
+    """Command-line interface for creating a minimal composite CAE HDF5 file."""
+    parser = argparse.ArgumentParser(
+        description="Create minimal composite CAE HDF5 file."
+    )
+    parser = argparse.ArgumentParser(description="Validate composite cae h5 file")
+    parser.add_argument("output_file", type=Path, help="H5 file")
+
+    args = parser.parse_args()
+    create_minimal_h5_file(args.output_file)
+    print("Minimal composite CAE HDF5 file created at:", args.output_file)

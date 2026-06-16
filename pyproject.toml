@@ -63,6 +63,7 @@ include = ["src/ansys/hdf5_composite_cae/example_files/*"]
 [project.scripts]
 validate_composite_cae_h5 = "ansys.hdf5_composite_cae.cli:validate"
 show_composite_cae_h5_examples = "ansys.hdf5_composite_cae.cli:show_examples"
+create_minimal_file = "ansys.hdf5_composite_cae.cli:create_minimal_file"
 
 [tool.ruff.lint]
 select = [
