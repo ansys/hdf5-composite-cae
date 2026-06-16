@@ -78,7 +78,7 @@ def test_empty():
         with h5.File(filepath, "w") as f:
             _ = f.create_group("composite_cae")
         # Verify that validation raises an error for the incomplete file
-        with pytest.raises(RuntimeError, match="Validation errors"):
+        with pytest.raises(RuntimeError, match="Missing key 'components'"):
             validate_file(filepath)
 
 
