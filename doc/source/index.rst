@@ -45,3 +45,6 @@ Click the cards below to explore the documentation.
 
     api.rst
     specification.rst
+    contribute.rst
+    getting_started.rst
+    user_guide.rst

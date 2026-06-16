@@ -125,17 +125,6 @@ The example files demonstrate different aspects of the format and can serve as
 references for creating your own files. Use HDFView or another HDF5 viewer to
 explore their structure.
 
-Best practices
-==============
-
-When working with HDF5 composite CAE files, consider these best practices:
-
-1. **Always validate**: Run validation on files before exchanging them with other tools
-2. **Use meaningful names**: Give descriptive names to components and data maps
-3. **Document your data**: Use HDF5 attributes to add metadata and documentation
-4. **Start with examples**: Use the provided example files as templates for your own files
-5. **Check the specification**: Refer to the :ref:`specification` for detailed format requirements
-
 Further reading
 ===============
 
