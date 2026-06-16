@@ -39,3 +39,9 @@ Click the cards below to explore the documentation.
         :link-type: doc
 
         Learn how to contribute to the project.
+
+.. toctree::
+    :hidden:
+
+    api.rst
+    specification.rst
