@@ -71,13 +71,9 @@ class ErrorCollector:
         """
         try:
             return obj[key]
-        except Exception as e:
+        except Exception:
             err = f"Missing key '{key}' at {obj.name}"
-
-            if self._throw_on_first_error:
-                raise RuntimeError(err) from e
-            log.error(err)
-            self._errors.append(err)
+            self.raise_error(err)
 
     def raise_error(self, error):
         """Raise or collect an error.
@@ -107,10 +103,9 @@ class ErrorCollector:
         if not isinstance(link, h5.SoftLink):
             self.raise_error(f"{path} needs to be a softlink")
 
-    def raise_accumlated_errors(self):
-        """Raise accumulated errors if any exist."""
-        if len(self._errors):
-            raise RuntimeError("Validation errors:\n" + "\n".join(self._errors))
+    def raise_accumulated_errors(self):
+        if len(self._errors) > 0:
+            raise RuntimeError("\n" + "\n".join(self._errors))
 
 
 def _validate_components(f, components, error_collector, h5_file):
@@ -373,5 +368,5 @@ def validate_file(h5_file: Path | str, stop_on_first_error=False):
         data_maps = error_collector.checked_get(root, "data_maps")
         _validate_data_maps(data_maps, error_collector)
 
-        error_collector.raise_accumlated_errors()
+        error_collector.raise_accumulated_errors()
         print("Validation passed without error.")
