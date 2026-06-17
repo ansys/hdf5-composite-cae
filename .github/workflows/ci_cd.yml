@@ -40,7 +40,7 @@ jobs:
     name: "Documentation style"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/doc-style@12ca08fd7f0caa52076cca15c5621482646f8560 # v10.3.1
+      - uses: ansys/actions/doc-style@d946b24b9a765f4169bcc94afdb27bd1a0533741 # v10.3.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -66,7 +66,7 @@ jobs:
     needs: doc-style
     steps:
       - name: "Run Ansys documentation building action"
-        uses: ansys/actions/doc-build@v10.3
+        uses: ansys/actions/doc-build@v10.3.2
         with:
           requires-xvfb: true
           group-dependencies-name: 'doc'
@@ -101,7 +101,7 @@ jobs:
     needs: [build-library]
     if: github.event_name == 'push'
     steps:
-      - uses: ansys/actions/doc-deploy-dev@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
+      - uses: ansys/actions/doc-deploy-dev@d946b24b9a765f4169bcc94afdb27bd1a0533741 # v10.3.2
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
@@ -115,7 +115,7 @@ jobs:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
     steps:
       - name: Deploy the stable documentation
-        uses: ansys/actions/doc-deploy-stable@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
+        uses: ansys/actions/doc-deploy-stable@d946b24b9a765f4169bcc94afdb27bd1a0533741 # v10.3.2
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
@@ -132,7 +132,7 @@ jobs:
           python-version: ['3.10', '3.11', '3.12', '3.13','3.14']
     steps:
       - name: "Build a wheelhouse of the Python library"
-        uses: ansys/actions/build-wheelhouse@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
+        uses: ansys/actions/build-wheelhouse@d946b24b9a765f4169bcc94afdb27bd1a0533741 # v10.3.2
         with:
           library-name: ${{ env.LIBRARY_NAME }}
           operating-system: ${{ matrix.os }}
@@ -184,6 +184,6 @@ jobs:
     name: "Check pull-request title follows conventional commits"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/check-pr-title@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
+      - uses: ansys/actions/check-pr-title@d946b24b9a765f4169bcc94afdb27bd1a0533741 # v10.3.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
