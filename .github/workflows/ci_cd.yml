@@ -6,6 +6,9 @@ on:
       - "*"
     branches:
       - main
+  schedule:
+    - cron: '0 5 * * *'  # Daily at 06:00 MEZ (CET, UTC+1)
+  workflow_dispatch:
 
 env:
   MAIN_PYTHON_VERSION: '3.14'
