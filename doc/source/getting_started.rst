@@ -1,24 +1,23 @@
 .. _getting_started:
 
-***************
 Getting started
-***************
+###############
 
-This section provides instructions for installing and getting started with the HDF5 Composite CAE package.
+Use this section to install and start working with the HDF5 composite CAE package.
 
 Installation
-============
+------------
 
-You can install the HDF5 Composite CAE package using ``pip``:
+Install the package using ``pip``:
 
 .. code-block:: bash
 
     pip install ansys-hdf5-composite-cae
 
 Development installation
-========================
+------------------------
 
-For a development installation with all optional dependencies, follow these steps:
+To install the package with all optional and development dependencies:
 
 .. code-block:: bash
 
@@ -38,12 +37,12 @@ For a development installation with all optional dependencies, follow these step
     uv sync --all-groups
 
 Quick start
-===========
+-----------
 
-Once installed, you can start using the package through either the command-line interface or Python API.
+After installation, use the package from the command-line interface or Python API.
 
 Command-line interface
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 Validate an HDF5 file against the composite CAE specification:
 
@@ -58,10 +57,9 @@ View the location of example files:
     show_composite_cae_h5_examples
 
 Python API
-----------
+~~~~~~~~~~
 
-Validate a file
-~~~~~~~~~~~~~~~
+Validate a file:
 
 .. code-block:: python
 
@@ -70,8 +68,7 @@ Validate a file
     # Returns True if valid, raises an exception with details if invalid
     validate_file("my_file.h5")
 
-Create a minimal HDF5 file
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Create a minimal file:
 
 .. code-block:: python
 
@@ -79,19 +76,17 @@ Create a minimal HDF5 file
 
     create_minimal_h5_file("output.h5")
 
-Viewing HDF5 files
-==================
+View HDF5 files
+---------------
 
-HDF5 is a binary file format, so you need a viewer to open and inspect it.
-You can download the HDFView application here:
+HDF5 is a binary format, so you need a viewer to inspect file contents.
+You can download HDFView from the HDF Group website:
 
 https://www.hdfgroup.org/download-hdfview/
 
 Next steps
-==========
+----------
 
-- Check out the :ref:`user_guide` for more detailed information
-- Read the :ref:`specification` to understand the format structure
-- Explore the :ref:`api` for detailed API documentation
-
-
+- See the :ref:`user_guide` for detailed usage
+- See the :ref:`specification` for format structure
+- See the :ref:`api` for further documentation

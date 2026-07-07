@@ -333,17 +333,17 @@ def _validate_data_maps(data_maps, error_collector):
 
 
 def validate_file(h5_file: Path | str, stop_on_first_error=False):
-    """Validates a composite_cae HDF5 file.
+    """Validates an HDF5 composite CAE file.
 
-    Throws an exception on the first error if `stop_on_first_error` is true. Otherwise, prints
-    the errors to the console.
+    If `stop_on_first_error` is True, the function raises an exception on the first error. Otherwise,
+    it reports all validation errors.
 
     Parameters
     ----------
     h5_file:
-        Path of the file to validate
+        Path of the file to validate.
     stop_on_first_error:
-        If True, stops on first error. Otherwise, lists all the errors found in the file.
+        If True, stops on the first error. Otherwise, reports all validation errors.
     """
     error_collector = ErrorCollector(stop_on_first_error)
     with h5.File(h5_file, "r") as f:
