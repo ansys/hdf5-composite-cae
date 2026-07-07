@@ -1,43 +1,44 @@
 .. _contribute:
 
-**********
 Contribute
-**********
+##########
 
 Thank you for your interest in contributing to the HDF5 Composite CAE project.
 
 Contribution guidelines
-=======================
+-----------------------
 
-All contributions to this project should follow the guidelines outlined in the
+All contributions must follow the guidelines outlined in the
 `PyAnsys Developer's Guide <https://dev.docs.pyansys.com/index.html>`_.
 
-The PyAnsys Developer's Guide covers:
+For general guidance, see the `Contributing <https://dev.docs.pyansys.com/how-to/contributing.html>`__ section in the *PyAnsys Developer's Guide*.
 
-- Code style and formatting requirements
-- Testing standards and practices
+You must follow these guidelines before contributing to the HDF5 composite CAE package.
+
+The guide covers:
+
+- Code style and formatting
+- Testing practices
 - Documentation requirements
-- Pull request procedures
+- Pull request workflow
 - Code review process
 
 Code of conduct
-===============
+---------------
 
-All contributions are subject to the project's Code of Conduct. Please review and
-follow these guidelines to ensure a welcoming and inclusive environment for all
-contributors.
+All contributions must follow the project's Code of Conduct to ensure a welcoming
+and inclusive environment.
 
-You can find the Code of Conduct in the ``CODE_OF_CONDUCT.md`` file in the
-project repository.
+See the ``CODE_OF_CONDUCT.md`` file in the repository.
 
 How to contribute
-=================
+-----------------
 
-Setting up your development environment
-----------------------------------------
+Set up your development environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Clone the repository
-2. Install the development dependencies:
+1. Clone the repository.
+2. Install development dependencies:
 
 .. code-block:: bash
 
@@ -56,17 +57,19 @@ Setting up your development environment
     # Install package with all development dependencies
     uv sync --all-groups
 
-Running tests
--------------
+Run tests
+~~~~~~~~~
 
-Run the test suite to ensure your changes don't break existing functionality:
+Run the test suite before submitting changes:
 
 .. code-block:: bash
 
     pytest
 
-Building documentation
-----------------------
+Ensure all tests pass.
+
+Build documentation
+~~~~~~~~~~~~~~~~~~~
 
 Build the documentation locally to preview your changes:
 
@@ -74,75 +77,74 @@ Build the documentation locally to preview your changes:
 
     python scripts/build.py build_doc
 
-The built documentation will be available in the ``_build/html`` directory.
+The generated documentation is located in the ``_build/html`` directory.
 
-Submitting changes
-------------------
+Submit changes
+~~~~~~~~~~~~~~
 
-1. Create a new branch for your changes
-2. Make your changes and commit them with clear, descriptive messages
-3. Push your branch to the repository
-4. Create a pull request with a detailed description of your changes
-5. Address any feedback from code reviewers
+1. Create a feature branch.
+2. Make your changes.
+3. Commit using clear, descriptive messages.
+4. Push your branch to the repository.
+5. Open a pull request with a detailed description of your changes.
+6. Address any feedback from code reviewers.
 
 Types of contributions
-======================
+----------------------
 
-We welcome various types of contributions:
+The following contribution types are welcome.
 
-Bug reports
------------
+Report bugs
+~~~~~~~~~~~
 
-If you find a bug, please open an issue with:
+Open an issue and include:
 
-- A clear description of the problem
-- Steps to reproduce the issue
-- Expected vs. actual behavior
-- Your environment (Python version, OS, etc.)
+- Description of the issue
+- Steps to reproduce
+- Expected versus actual behavior
+- Environment details (Python version, OS, etc.)
 
-Feature requests
-----------------
+Request features
+~~~~~~~~~~~~~~~~
 
-Have an idea for a new feature? Open an issue describing:
+Open an issue describing:
 
-- The feature you'd like to see
-- Why it would be useful
-- Any implementation ideas you have
+- The proposed feature
+- Why it is useful
+- Any suggested implementation
 
-Code contributions
-------------------
+Contribute code
+~~~~~~~~~~~~~~~
 
-Code contributions are welcome. Please:
+When submitting code:
 
 - Follow the code style guidelines
-- Add tests for new functionality
+- Add or update tests
 - Update documentation as needed
 - Ensure all tests pass
 
-Documentation improvements
---------------------------
+Improve documentation
+~~~~~~~~~~~~~~~~~~~~~
 
-Documentation improvements are always appreciated, including:
+Documentation improvements are encouraged, including:
 
-- Fixing typos or clarifying existing content
+- Fixing errors or clarifying content
 - Adding examples or tutorials
 - Improving API documentation
 - Translating documentation
 
 Questions and support
-=====================
+---------------------
 
-If you have questions about contributing, please:
+If you have questions:
 
-- Check the existing documentation and issues
-- Reach out through the project's issue tracker
-- Refer to the `PyAnsys Developer's Guide <https://dev.docs.pyansys.com/index.html>`_
+- Review existing documentation and issues
+- Open a new issue for discussion
+- Refer to the `PyAnsys Developer's Guide <https://dev.docs.pyansys.com/index.html>`__.
 
 License
-=======
+-------
 
-By contributing to this project, you agree that your contributions will be licensed
-under the same license as the project (MIT License).
-
-Thank you for contributing.
+By contributing, you agree that your contributions are licensed
+under the project's license (MIT License).
 
