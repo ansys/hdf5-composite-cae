@@ -1,15 +1,15 @@
 .. _specification:
 
-HDF5 composite CAE specification
-################################
+HDF5 composite CAE format specification
+#######################################
 
-This document defines the HDF5 composite CAE format. The format enables the exchange of composite layup data between computer-aided engineering (CAE) tools.
+This document defines the HDF5 composite CAE format. Use this format to exchange composite layup data between computer-aided engineering (CAE) tools.
 
-The format is based on the following concepts:
+Use the following concepts in this format:
 
 * **Mesh**: Stores geometric information consisting of nodes and elements.
 * **Component**: Represents a layer in the composite structure. Each component references a mesh and data map.
-* **Data map**: Stores the data associated with each element or node in a mesh, including thickness, reference direction, and fiber direction.
+* **Data map**: Stores data for each element or node in a mesh, including thickness, reference direction, and fiber direction.
 
 .. note::
     HDF5 is a binary format. Use a viewer such as `HDFView <https://www.hdfgroup.org/download-hdfview/>`__ to inspect file contents.
@@ -38,35 +38,35 @@ Node types in HDF5 tree
 Container node
 ~~~~~~~~~~~~~~
 
-A container node is a group node that contains a list of object nodes of the same type.
+A container node is a group node with a list of object nodes of the same type.
 
 **Examples**: fabrics, meshes, rosettes.
 
 Named object node
 ~~~~~~~~~~~~~~~~~
 
-A named object node represents a single object. To avoid the HDF5 naming restrictions, store the external object name in the ``title`` attribute.
+A named object node represents a single object. To avoid HDF5 naming restrictions, store the external object name in the ``title`` attribute.
 
-Store the object's associated data in the node's attributes or attached data nodes.
+Store the object's data in the node's attributes or attached data nodes.
 
 **Examples**: fabric, mesh, rosette.
 
 Link node
 ~~~~~~~~~
 
-A link node stores the dependencies between nodes in the tree.
+A link node stores dependencies between nodes in the tree.
 
 Data node
 ~~~~~~~~~
 
-A data node stores array or scalar data in its attributes.
+A data node stores array or scalar values in its attributes.
 
 Specification of node names
 ---------------------------
 
-To support interoperability with high-level interfaces such as PyTables, HDF5 node names must match the Perl-compatible regular expression ``'^[a-zA-Z_][a-zA-Z0-9_]*$'``.
+To support interoperability with high-level interfaces such as PyTables, use HDF5 node names that match the Perl-compatible regular expression ``'^[a-zA-Z_][a-zA-Z0-9_]*$'``.
 
-Node names must be unique within each group.
+Use unique node names within each group.
 
 General comments
 -----------------
@@ -125,7 +125,7 @@ For example, if ``unit_system`` is "SI" and ``length_unit`` is "mm", the length 
 composite_cae->global_coord_sys
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-4×3 array of doubles defining the origin and its directions for the entire model.
+4×3 array of doubles that defines the origin and directions for the entire model.
 
 .. code-block:: text
 
@@ -134,7 +134,7 @@ composite_cae->global_coord_sys
    [dir2 x]     [dir2 y]     [dir2 z]
    [dir3 x]     [dir3 y]     [dir3 z]
 
-This attribute is not currently supported by Ansys.
+Ansys does not currently support this attribute.
 
 Material data
 #############
@@ -142,7 +142,7 @@ Material data
 material_data->fabrics->fabric(named)
 -------------------------------------
 
-material_data->fabrics->fabric(named)->orientations (Obsolete)
+material_data->fabrics->fabric(named)->orientations (obsolete)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Array of doubles.
@@ -152,7 +152,7 @@ Array of doubles.
    [0, 45, -45]
 
 .. note::
-   This property is not read or written by Ansys and will be removed in a future release.
+  Ansys does not read or write this property. This property may be removed in a future release.
 
 material_data->fabrics->fabric(named)->mechanical
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -309,7 +309,7 @@ Supported element types:
 - **6:** 6-node shell
 - **8:** 8-node shell
 
-The list of element types may be expanded in future releases, for example, by using 108 and 120 for 8-node and 20-node bricks.
+The list of element types may expand in future releases, for example with 108 and 120 for 8-node and 20-node bricks.
 
 meshes->mesh(named)->element_nodes
 ----------------------------------
@@ -320,7 +320,7 @@ n×m variable-length (VLArray) of integers.
 
    [node 1] [node 2] … [node m]
 
-Defines the element's nodes, with node indices that point directly to entries in the nodes and node_labels arrays.
+Defines element nodes. Node indices point directly to entries in the nodes and node_labels arrays.
 
 Node order must follow the indices shown below:
 
@@ -344,12 +344,12 @@ Node order must follow the indices shown below:
 meshes->mesh(named)->edge_sets->edge_set(named)
 -----------------------------------------------
 
-Array of unsigned integers. Contains node indices that reference the nodes in this set.
+Array of unsigned integers. Contains node indices that reference nodes in this set.
 
 meshes->mesh(named)->element_sets->element_set(named)
 -----------------------------------------------------
 
-Array of unsigned integers. Contains element indices that reference the elements in this set.
+Array of unsigned integers. Contains element indices that reference elements in this set.
 
 Components
 ##########
@@ -380,7 +380,7 @@ Attributes:
      -
 
 .. note::
-   The mapping_type attribute is optional and will be detailed later. Because ACP can use multiple rosettes
+   The mapping_type attribute is optional and is detailed later. Because ACP can use multiple rosettes
    to define a ply's reference direction, several mapping types are defined, including interpolation algorithms such as "minimum distance" and "minimum angle."
 
 components->component(named)->placement_coord_sys

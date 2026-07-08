@@ -15,7 +15,7 @@ For general guidance, see the `Contributing <https://dev.docs.pyansys.com/how-to
 
 You must follow these guidelines before contributing to the HDF5 composite CAE package.
 
-The guide covers:
+The guide includes:
 
 - Code style and formatting
 - Testing practices
@@ -71,13 +71,13 @@ Ensure all tests pass.
 Build documentation
 ~~~~~~~~~~~~~~~~~~~
 
-Build the documentation locally to preview your changes:
+Build the documentation locally to preview changes:
 
 .. code-block:: bash
 
     python scripts/build.py build_doc
 
-The generated documentation is located in the ``_build/html`` directory.
+The generated documentation is in the ``_build/html`` directory.
 
 Submit changes
 ~~~~~~~~~~~~~~
@@ -107,7 +107,7 @@ Open an issue and include:
 Request features
 ~~~~~~~~~~~~~~~~
 
-Open an issue describing:
+Open an issue that describes:
 
 - The proposed feature
 - Why it is useful
@@ -126,7 +126,7 @@ When submitting code:
 Improve documentation
 ~~~~~~~~~~~~~~~~~~~~~
 
-Documentation improvements are encouraged, including:
+Documentation improvements are welcome, including:
 
 - Fixing errors or clarifying content
 - Adding examples or tutorials
@@ -136,7 +136,7 @@ Documentation improvements are encouraged, including:
 Questions and support
 ---------------------
 
-If you have questions:
+If you have questions, you can:
 
 - Review existing documentation and issues
 - Open a new issue for discussion
@@ -146,5 +146,5 @@ License
 -------
 
 By contributing, you agree that your contributions are licensed
-under the project's license (MIT License).
+under the project's MIT License.
 
