@@ -29,8 +29,12 @@ Tree overview
    :depth: 2
    :local:
 
+----
+
 General information
 ###################
+
+This section describes general information about the HDF5 composite CAE format.
 
 Node types in HDF5 tree
 -----------------------
@@ -61,20 +65,22 @@ Data node
 
 A data node stores array or scalar values in its attributes.
 
-Specification of node names
----------------------------
+.. important::
 
-To support interoperability with high-level interfaces such as PyTables, use HDF5 node names that match the Perl-compatible regular expression ``'^[a-zA-Z_][a-zA-Z0-9_]*$'``.
+   To support interoperability with high-level interfaces such as PyTables, use HDF5 node names that match the Perl-compatible regular expression:
 
-Use unique node names within each group.
+   ``^[a-zA-Z_][a-zA-Z0-9_]*$``
 
-General comments
------------------
+   Node names must be unique within a group.
+
+General rules
+-------------
 
 All string attributes use UTF-8 encoding.
 
+----
 
-Root level nodes
+Root-level nodes
 #################
 
 composite_cae
@@ -122,8 +128,8 @@ The ``*_unit`` attributes override ``unit_system``.
 
 For example, if ``unit_system`` is "SI" and ``length_unit`` is "mm", the length unit is "mm".
 
-composite_cae->global_coord_sys
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+composite_cae → global_coord_sys
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 4×3 array of doubles that defines the origin and directions for the entire model.
 
@@ -136,14 +142,16 @@ composite_cae->global_coord_sys
 
 Ansys does not currently support this attribute.
 
+----
+
 Material data
 #############
 
-material_data->fabrics->fabric(named)
--------------------------------------
+material_data → fabrics → fabric(named)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-material_data->fabrics->fabric(named)->orientations (obsolete)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+material_data → fabrics → fabric(named) → orientations (obsolete)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Array of doubles.
 
@@ -154,8 +162,8 @@ Array of doubles.
 .. note::
   Ansys does not read or write this property. This property may be removed in a future release.
 
-material_data->fabrics->fabric(named)->mechanical
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+material_data → fabrics → fabric(named) → mechanical
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. list-table::
@@ -211,8 +219,8 @@ material_data->fabrics->fabric(named)->mechanical
      - double (optional)
      -
 
-material_data->fabrics->fabric(named)->cost
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+material_data → fabrics → fabric(named) → cost
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :widths: 30 20 50
@@ -246,8 +254,7 @@ material_data->stackups->stackup(named)->cost
      - double
      -
 
-material_data->stackups->stackup(named)->fabric
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. rubric:: ``material_data → stackups → stackup(named) → fabric``
 
 .. list-table::
    :widths: 30 20 50
@@ -263,11 +270,12 @@ material_data->stackups->stackup(named)->fabric
      - double
      - Angle of the fabric within the stackup.
 
+----
+
 Meshes
 ######
 
-meshes->mesh(named)->node_labels
---------------------------------
+.. rubric:: ``meshes → mesh(named) → node_labels``
 
 n×1 array of integers.
 
@@ -275,8 +283,7 @@ n×1 array of integers.
 
    [unique node id]
 
-meshes->mesh(named)->nodes
---------------------------
+.. rubric:: ``meshes → mesh(named) → nodes``
 
 n×3 array of doubles.
 
@@ -284,8 +291,7 @@ n×3 array of doubles.
 
    [node x]  [node y]  [node z]
 
-meshes->mesh(named)->element_labels
------------------------------------
+.. rubric:: ``meshes → mesh(named) → element_labels``
 
 n×1 array of integers.
 
@@ -293,8 +299,7 @@ n×1 array of integers.
 
    [unique element id]
 
-meshes->mesh(named)->element_types
-----------------------------------
+.. rubric:: ``meshes → mesh(named) → element_types``
 
 n×1 array of integers.
 
@@ -311,8 +316,7 @@ Supported element types:
 
 The list of element types may expand in future releases, for example with 108 and 120 for 8-node and 20-node bricks.
 
-meshes->mesh(named)->element_nodes
-----------------------------------
+.. rubric:: ``meshes → mesh(named) → element_nodes``
 
 n×m variable-length (VLArray) of integers.
 
@@ -341,21 +345,20 @@ Node order must follow the indices shown below:
    A VLArray is used to support different element types (see ``meshes->mesh(named)->element_types``).
 
 
-meshes->mesh(named)->edge_sets->edge_set(named)
------------------------------------------------
+.. rubric:: ``meshes → mesh(named) → edge_sets → edge_set(named)`` 
 
 Array of unsigned integers. Contains node indices that reference nodes in this set.
 
-meshes->mesh(named)->element_sets->element_set(named)
------------------------------------------------------
+.. rubric:: ``meshes → mesh(named) → element_sets → element_set(named)``
 
 Array of unsigned integers. Contains element indices that reference elements in this set.
+
+----
 
 Components
 ##########
 
-components->component(named)
-----------------------------
+.. rubric:: ``components → component(named)``
 
 Attributes:
 
@@ -383,8 +386,7 @@ Attributes:
    The mapping_type attribute is optional and is detailed later. Because ACP can use multiple rosettes
    to define a ply's reference direction, several mapping types are defined, including interpolation algorithms such as "minimum distance" and "minimum angle."
 
-components->component(named)->placement_coord_sys
--------------------------------------------------
+.. rubric:: ``components → component(named) → placement_coord_sys``
 
 4×3 array of doubles.
 
@@ -400,22 +402,19 @@ The placement_coord_sys has two purposes:
 - Its normal defines the default offset direction of the layup.
 - Its origin and dir1 define the starting point and initial direction of the draping calculation.
 
-components->component(named)->material
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. rubric:: ``components → component(named) → material``
 
 **Softlink**
 
 Defines the ply material and refers to an object in ``material_data->fabrics`` or ``material_data->stackups``.
 
-components->component(named)->element_set
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. rubric:: ``components → component(named) → element_set``
 
 **Softlink**
 
 Defines a link to an element set of a mesh and specifies the ply extent.
 
-components->component(named)->data_map
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. rubric:: ``components → component(named) → data_map``
 
 **Softlink**
 
@@ -428,18 +427,18 @@ The following rules apply:
 - If matorient_1_angles is not present, it is set equal to ``component->orientation``.
 - If matorient_2_angles is not present, it is computed as: matorient_2_angles = matorient_1_angles + 90°.
 
-components->component(named)->rosettes->rosette(named)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. rubric:: ``components → component(named) → rosettes → rosette(named)``
 
 **Softlink (Optional)**
 
 Defines a link to the rosettes of this component.
 
+----
+
 Rosettes
 ########
 
-rosettes->rosette(named)
-------------------------
+.. rubric:: ``rosettes → rosette(named)``
 
 Attributes:
 
@@ -459,8 +458,7 @@ Attributes:
    ACP defines the standard rosette types "parallel," "radial," "cylindrical," and "spherical." The exact definition of this attribute has been postponed
    because this information is optional and is not required to map the ply orientation field correctly.
 
-rosettes->rosette(named)->coord_sys
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. rubric:: ``rosettes → rosette(named) → coord_sys``
 
 4 by 3 array of doubles.
 
@@ -471,51 +469,46 @@ rosettes->rosette(named)->coord_sys
    [dir2 x]     [dir2 y]     [dir2 z]
    [normal x]   [normal y]   [normal z]
 
+----
+
 Data maps
 #########
 
-data_maps->data_map(named)->element_set/node/node_set
------------------------------------------------------
+.. rubric:: ``data_maps → data_map(named) → element_set/node/node_set``
 
 Defines a link to an element set of a mesh or to an edge set of a mesh. This link specifies the positions where the orientations, thicknesses, and other values are defined.
 
-data_maps->data_map(named)->reference_directions
-------------------------------------------------
+.. rubric:: ``data_maps → data_map(named) → reference_directions``
 
 n×3 array of doubles.
 
 Defines the reference directions using absolute direction vectors.
 
-data_maps->data_map(named)->normals
------------------------------------
+.. rubric:: ``data_maps → data_map(named) → normals``
 
 n×3 array of doubles (optional).
 
 Defines the normal directions using absolute direction vectors. If present, these vectors can be used to project the reference direction onto the plane defined by the normal.
 
-data_maps->data_map(named)->matorient_1_angles
-----------------------------------------------
+.. rubric:: ``data_maps → data_map(named) → matorient_1_angles``
 
 n×1 array of doubles (optional).
 
 Defines the material orientation 1 angles with respect to the reference direction and the given normal.
 
-data_maps->data_map(named)->matorient_2_angles
-----------------------------------------------
+.. rubric:: ``data_maps → data_map(named) → matorient_2_angles``
 
 n×1 array of doubles (optional).
 
 Defines the material orientation 2 angles with respect to the reference direction and the given normal.
 
-data_maps->data_map(named)->thicknesses
----------------------------------------
+.. rubric:: ``data_maps → data_map(named) → thicknesses``
 
 n×1 array of doubles (optional).
 
 Defines position-dependent thickness values.
 
-data_maps->data_map(named)->scalar_user_data->scalar_user_data(named)
----------------------------------------------------------------------
+.. rubric:: ``data_maps → data_map(named) → scalar_user_data → scalar_user_data(named)``
 
 n×1 array of doubles (optional).
 
@@ -533,17 +526,18 @@ User-defined scalar data fields. Only supported by Ansys.
      - string
      - "dimensionless", "length", "mass", "time", "temp" (default: "dimensionless")
 
+----
+
 Component groups
 ################
 
-component_groups->component_group(named)
-----------------------------------------
+.. rubric:: ``component_groups → component_group(named)``
 
 Optional.
 
 Component groups can be defined to store grouping information of components.
 
-
+----
 
 Change log
 ##########

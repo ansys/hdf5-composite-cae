@@ -122,7 +122,7 @@ Use example files as references when you create your own files. Open them with H
 Further reading
 ---------------
 
-- See the :ref:`specification` for format details.
-- See the :ref:`api` for further documentation.
-- See the :ref:`contribute` for contribution guidelines.
+- See the :ref:`specification` for file structure and format requirements.
+- See the :ref:`api` for classes, functions, and methods.
+- See :ref:`contribute` for development and contribution guidelines.
 

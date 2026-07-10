@@ -87,6 +87,6 @@ https://www.hdfgroup.org/download-hdfview/
 Next steps
 ----------
 
-- See the :ref:`user_guide` for usage details.
-- See the :ref:`specification` for format details.
-- See the :ref:`api` for further information.
+- See the :ref:`user_guide` for concepts, workflows, and examples.
+- See the :ref:`specification` for file structure and format requirements.
+- See the :ref:`api` for classes, functions, and methods.
