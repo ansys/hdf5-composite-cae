@@ -61,6 +61,11 @@ html_context = {
     "doc_path": "doc/source",
 }
 
+
+html_theme_options = {
+    "show_toc_level": 3,
+}
+
 # Sphinx extensions
 extensions = [
     "sphinx.ext.autodoc",

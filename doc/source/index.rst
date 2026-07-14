@@ -21,7 +21,7 @@ Use the cards below to explore the documentation.
 
         Learn the key concepts for creating, validating, and working with HDF5 composite CAE files.
 
-    .. grid-item-card:: HDF5 composite CAE specifications :octicon:`file-code`
+    .. grid-item-card:: Format specifications :octicon:`file-code`
         :link: specification
         :link-type: doc
 

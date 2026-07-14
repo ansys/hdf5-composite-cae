@@ -44,7 +44,7 @@ After installation, you can use the package from the command-line interface or P
 Command-line interface
 ~~~~~~~~~~~~~~~~~~~~~~
 
-To validate an HDF5 file against the composite CAE specification, run:
+To validate an HDF5 file against the composite CAE specifications, run:
 
 .. code-block:: bash
 
