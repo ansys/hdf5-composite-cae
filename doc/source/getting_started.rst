@@ -17,7 +17,7 @@ Install the package using ``pip``:
 Development installation
 ------------------------
 
-To install the package with all optional and development dependencies, run the following commands:
+Install the package with all optional and development dependencies:
 
 .. code-block:: bash
 
@@ -76,10 +76,10 @@ To create a minimal file, use:
 
     create_minimal_h5_file("output.h5")
 
-View files in HDF5 format
--------------------------
+View HDF5 files
+---------------
 
-HDF5 is a binary format, so you need a viewer to inspect its contents.
+You need a viewer to inspect HDF5 file contents.
 You can download HDFView from the HDF Group website:
 
 https://www.hdfgroup.org/download-hdfview/

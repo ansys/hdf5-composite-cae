@@ -7,9 +7,9 @@ This document defines the specifications for the HDF5 composite CAE format. Use 
 
 Use the following concepts in this format:
 
-* **Mesh**: Stores geometric information consisting of nodes and elements.
-* **Component**: Represents a layer in the composite structure. Each component references a mesh and data map.
-* **Data map**: Stores data for each element or node in a mesh, including thickness, reference direction, and fiber direction.
+* **Mesh**: A mesh stores geometric information consisting of nodes and elements.
+* **Component**: A component represents a layer in the composite structure. Each component references a mesh and data map.
+* **Data map**: A data map stores data for each element or node in a mesh, including thickness, reference direction, and fiber direction.
 
 .. note::
     HDF5 is a binary format. Use a viewer such as `HDFView <https://www.hdfgroup.org/download-hdfview/>`__ to inspect file contents.
@@ -41,16 +41,16 @@ Node types in HDF5 tree
      - Definition
      - Examples
    * - Container node
-     - Group node that contains object nodes of the same type.
+     - A group node that contains object nodes of the same type.
      - fabrics, meshes, rosettes
    * - Named object node
      - Represents a single object. To avoid HDF5 naming restrictions, store the external object name in the ``title`` attribute. Store object data in attributes or attached data nodes.
      - fabric, mesh, rosette
    * - Link node
-     - Stores dependencies between nodes in the tree.
+     - A link node stores dependencies between nodes in the tree.
      -
    * - Data node
-     - Stores array or scalar values in its attributes.
+     - A data node stores array or scalar values in its attributes.
      -
 
 .. important::
@@ -502,10 +502,10 @@ Defines a link to the data map of this component.
 
 The following rules apply:
 
--- If the data map contains a thickness, a material of type ``material_data → stackups`` is not supported.
--- If ``data_map → thickness`` is not defined, thickness is computed from ``cured_thickness`` when the material is a fabric, or from the sum of all ``cured_thickness`` values when ``material_data → stackups``.
--- If ``matorient_1_angles`` is not present, it is set equal to ``component → orientation``.
--- If ``matorient_2_angles`` is not present, it is computed as: ``matorient_2_angles = matorient_1_angles + 90°``.
+- If the data map contains a thickness, a material of type ``material_data → stackups`` is not supported.
+- If ``data_map → thickness`` is not defined, thickness is computed from ``cured_thickness`` when the material is a fabric, or from the sum of all ``cured_thickness`` values when ``material_data → stackups``.
+- If ``matorient_1_angles`` is not present, it is set equal to ``component → orientation``.
+- If ``matorient_2_angles`` is not present, it is computed as: ``matorient_2_angles = matorient_1_angles + 90°``.
 
 Rosette (named)
 ~~~~~~~~~~~~~~~
@@ -538,8 +538,8 @@ Attributes:
      -
 
 .. note::
-   The possible values of the rosette mapping_type are not yet specified. FiberSIM defines the mapping types "translational," "standard," and "rotational."
-   ACP defines the standard rosette types "parallel," "radial," "cylindrical," and "spherical." The exact definition of this attribute has been postponed
+   The possible values of the rosette mapping_type are not yet specified. FiberSIM defines the mapping types as "translational", "standard", or "rotational".
+   ACP defines the standard rosette types as "parallel", "radial", "cylindrical", or "spherical". The exact definition of this attribute has been postponed
    because this information is optional and is not required to map the ply orientation field correctly.
 
 Coordinate system

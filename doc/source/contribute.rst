@@ -92,54 +92,54 @@ Submit changes
 Types of contributions
 ----------------------
 
-The following contribution types are welcome.
+You can contribute in the following ways:
 
 Report bugs
 ~~~~~~~~~~~
 
 Open an issue and include:
 
-- Description of the issue
-- Steps to reproduce
-- Expected versus actual behavior
-- Environment details (Python version, OS, etc.)
+- Description of the issue.
+- Steps to reproduce.
+- Expected versus actual behavior.
+- Environment details (Python version, OS, etc.).
 
 Request features
 ~~~~~~~~~~~~~~~~
 
 Open an issue that describes:
 
-- The proposed feature
-- Why it is useful
-- Any suggested implementation
+- The proposed feature.
+- Why it is useful.
+- Any suggested implementation.
 
 Contribute code
 ~~~~~~~~~~~~~~~
 
 When submitting code:
 
-- Follow the code style guidelines
-- Add or update tests
-- Update documentation as needed
-- Ensure all tests pass
+- Follow the code style guidelines.
+- Add or update tests.
+- Update documentation as needed.
+- Ensure all tests pass.
 
 Improve documentation
 ~~~~~~~~~~~~~~~~~~~~~
 
-Documentation improvements are welcome, including:
+Contribute documentation improvements, such as:
 
-- Fixing errors or clarifying content
-- Adding examples or tutorials
-- Improving API documentation
-- Translating documentation
+- Fixing errors or clarifying content.
+- Adding examples or tutorials.
+- Improving API documentation.
+- Translating documentation.
 
 Questions and support
 ---------------------
 
 If you have questions, you can:
 
-- Review existing documentation and issues
-- Open a new issue for discussion
+- Review existing documentation and issues.
+- Open a new issue for discussion.
 - Refer to the `PyAnsys Developer's Guide <https://dev.docs.pyansys.com/index.html>`__.
 
 License

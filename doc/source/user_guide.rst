@@ -14,32 +14,32 @@ format. It helps you exchange composite layup data between computer-aided engine
 
 The package includes:
 
-- **Format specification**: Structure of the HDF5 composite CAE format
-- **File validation**: Tools to validate HDF5 files against the specifications
-- **File creation**: Tools to create compliant HDF5 composite CAE files
-- **Example files**: Sample files that show the format's capabilities
+- **Format specification**: Structure of the HDF5 composite CAE format.
+- **File validation**: Tools to validate HDF5 files against the specifications.
+- **File creation**: Tools to create compliant HDF5 composite CAE files.
+- **Example files**: Sample files that show the format's capabilities.
 
 Key concepts
 ------------
 
-The HDF5 composite CAE format uses these three concepts:
+The HDF5 composite CAE format uses three core concepts: mesh, component, and data map. 
 
 Mesh
 ~~~~
 
-Stores geometric information consisting of nodes and elements. The mesh forms the foundation 
+A mesh stores geometric information consisting of nodes and elements, forming the foundation 
 for defining composite layups.
 
 Component
 ~~~~~~~~~
 
-Represents a layer in the composite structure. Each component references a data map and
+A component represents a layer in the composite structure. Each component references a data map and
 the underlying mesh. Use components to define layers with different properties.
 
 Data map
 ~~~~~~~~
 
-Contains data associated with each element or node in the mesh, including:
+A data map contains data associated with each element or node in the mesh, including:
 
 - Thickness
 - Reference direction
@@ -101,7 +101,7 @@ Use this file as a starting point. Then add your mesh, components, and data maps
 Work with example files
 -----------------------
 
-The package includes example HDF5 files that show the format's capabilities.
+You can use example HDF5 files included in the package to explore the format's capabilities.
 
 Locate example files
 ~~~~~~~~~~~~~~~~~~~~
