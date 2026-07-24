@@ -170,10 +170,10 @@ Mechanical
      - uni, woven
    * - ``weight_per_area``
      - double
-     -
+     - Weight per area
    * - ``cured_thickness``
      - double
-     -
+     - Cured thickness
    * - ``E1``
      - double (optional)
      -
@@ -386,7 +386,7 @@ Node order must follow the indices shown below:
    Click to view full size.
 
 .. note::
-  A VLArray is used to support different element types (see :ref:`meshes → mesh(named) → element_types <meshes_element_types>`).
+  A VLArray (variable length array) is used to support different element types (see :ref:`meshes → mesh(named) → element_types <meshes_element_types>`).
 
 
 Edge set (named)
