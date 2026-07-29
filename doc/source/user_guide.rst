@@ -15,7 +15,7 @@ format. It helps you exchange composite layup data between computer-aided engine
 The package includes:
 
 - **Format specification**: Structure of the HDF5 composite CAE format.
-- **File validation**: Tools to validate HDF5 files against the specifications.
+- **File validation**: Tools to validate HDF5 files against the specification.
 - **File creation**: Tools to create compliant HDF5 composite CAE files.
 - **Example files**: Sample files that show the format's capabilities.
 
@@ -50,7 +50,7 @@ Data maps define material orientation and geometric properties for each componen
 Validate files
 ----------------
 
-Use the provided tools to validate HDF5 files against the composite CAE specifications.
+Use the provided tools to validate HDF5 files against the composite CAE specification.
 
 Command-line interface
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -61,7 +61,7 @@ To validate a file, run:
 
     validate_composite_cae_h5 my_h5_file.h5
 
-This command checks whether the file conforms to the specifications. It reports any issues.
+This command checks whether the file conforms to the specification. It reports any issues.
 
 Python API
 ~~~~~~~~~~
@@ -122,7 +122,7 @@ Use example files as references when you create your own files. Open them with H
 Further reading
 ---------------
 
-- See the :ref:`specification` for file structure and format requirements.
+- See the :ref:`specification` page for file structure and format requirements.
 - See the :ref:`api` for classes, functions, and methods.
 - See :ref:`contribute` for development and contribution guidelines.
 

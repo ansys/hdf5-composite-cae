@@ -1,9 +1,9 @@
 .. _specification:
 
-Format specifications
-=====================
+Format specification
+====================
 
-This document defines the specifications for the HDF5 composite CAE format. Use this format to exchange composite layup data between computer-aided engineering (CAE) tools.
+This document defines the specification for the HDF5 composite CAE format. Use this format to exchange composite layup data between computer-aided engineering (CAE) tools.
 
 Use the following concepts in this format:
 
