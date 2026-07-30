@@ -301,13 +301,13 @@ def _create_material(fabrics, thickness=0.1):
 
 
 def create_minimal_h5_file(file_path: str):
-    """Creates a minimal composite_cae HDF5 file.
+    """Creates a minimal HDF5 composite CAE file.
 
 
     Parameters
     ----------
     file_path:
-        Location where file is created.
+        Path where the file is created.
     """
     with h5.File(file_path, "w") as f:
         root = f.create_group("composite_cae")

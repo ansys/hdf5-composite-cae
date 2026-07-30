@@ -1,87 +1,75 @@
 .. _specification:
 
-===================================
-HDF5 composite CAE specifications
-===================================
+Format specification
+====================
 
-This document describes the specifications for the HDF5 composite CAE file format, which exchanges composite layup information between CAE tools.
-The key layup concepts are:
+This document defines the specification for the HDF5 composite CAE format. Use this format to exchange composite layup data between computer-aided engineering (CAE) tools.
 
-* **Mesh**: You store geometrical information on the mesh, which consists of nodes and elements.
-* **Component**: A component represents a layer. Each component references a data_map and the mesh.
-* **Data map**: The data_map stores the geometrical information associated with each element or node in the mesh.
+Use the following concepts in this format:
 
-This includes thickness, reference direction, and fiber direction.
+* **Mesh**: A mesh stores geometric information consisting of nodes and elements.
+* **Component**: A component represents a layer in the composite structure. Each component references a mesh and data map.
+* **Data map**: A data map stores data for each element or node in a mesh, including thickness, reference direction, and fiber direction.
 
 .. note::
-    HDF5 is a binary file format, so you need a viewer to open it. You can download one here:
-
-    https://www.hdfgroup.org/download-hdfview/
+    HDF5 is a binary format. Use a viewer such as `HDFView <https://www.hdfgroup.org/download-hdfview/>`__ to inspect file contents.
 
 Tree overview
-=============
+-------------
 
 .. figure:: _static/tree.png
    :target: _static/tree.png
-   :alt: HDF5 Composite CAE Specification Tree
+   :alt: HDF5 composite CAE specification tree
    :width: 600px
    :align: center
 
-   Click to view full size
-
-.. contents:: Table of Contents
-   :depth: 2
-   :local:
+   Click to view full size.
 
 General information
-===================
+-------------------
 
-Node Types in HDF5 tree
------------------------
+This section describes general information about the HDF5 composite CAE format.
 
-Container node
-~~~~~~~~~~~~~~
+Node types in HDF5 tree
+~~~~~~~~~~~~~~~~~~~~~~~
 
-A container node is a group node that contains a list of object nodes of the same type.
+.. list-table::
+   :header-rows: 1
+   :widths: 20 55 25
 
-**Examples**: fabrics, meshes, rosettes
+   * - Node type
+     - Definition
+     - Examples
+   * - Container node
+     - A group node that contains object nodes of the same type.
+     - fabrics, meshes, rosettes
+   * - Named object node
+     - Represents a single object. To avoid HDF5 naming restrictions, store the external object name in the ``title`` attribute. Store object data in attributes or attached data nodes.
+     - fabric, mesh, rosette
+   * - Link node
+     - A link node stores dependencies between nodes in the tree.
+     -
+   * - Data node
+     - A data node stores array or scalar values in its attributes.
+     -
 
-Named object node
-~~~~~~~~~~~~~~~~~
+.. important::
 
-A named object node represents a single object. To avoid the naming restrictions of HDF5 nodes, store the external object name in the ``title`` attribute.
+   To support interoperability with high-level interfaces such as PyTables, use HDF5 node names that match the Perl-compatible regular expression:
 
-Store the object's associated data in the node's attributes or in attached data nodes.
+   ``^[a-zA-Z_][a-zA-Z0-9_]*$``
 
-**Examples**: fabric, mesh, rosette
+   Node names must be unique within a group.
 
-Link node
-~~~~~~~~~
+**General rule:** all string attributes use UTF-8 encoding.
 
-A link node stores the dependencies between nodes in the tree.
-
-Data node
-~~~~~~~~~
-
-A data node stores either array data or scalar data in its attributes.
-
-Specification of node names
----------------------------
-
-To support interoperability with high-level interfaces (such as PyTables), HDF5 node names must match the Perl-compatible regular expression ``'^[a-zA-Z_][a-zA-Z0-9_]*$'``.
-Node names must be unique within each group.
-
-General comments
------------------
-
-All string attributes use UTF-8 encoding.
-
-
-Root level nodes
-=================
+Root-level nodes
+----------------
 
 composite_cae
--------------
+~~~~~~~~~~~~~
+
+**Path:** ``composite_cae``
 
 All attributes are optional.
 
@@ -120,31 +108,40 @@ All attributes are optional.
      - string
      - "deg", "rad"
 
-If you do not specify a unit system, the importer uses its default unit system. The ``*_unit`` attributes take precedence over the ``unit_system`` attribute.
-For example, if ``unit_system`` is set to "SI" and ``length_unit`` is "mm," the length unit is "mm.""
+If ``unit_system`` is not specified, the importer uses its default unit system.
+The ``*_unit`` attributes override ``unit_system``.
 
-composite_cae->global_coord_sys
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+For example, if ``unit_system`` is "SI" and ``length_unit`` is "mm", the length unit is "mm".
 
-4 by 3 array of doubles that defines the origin and its directions for the entire model.
+Global coordinate system
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: text
+**Path:** ``composite_cae → global_coord_sys``
 
-   [origin x]   [origin y]   [origin z]
-   [dir1 x]     [dir1 y]     [dir1 z]
-   [dir2 x]     [dir2 y]     [dir2 z]
-   [dir3 x]     [dir3 y]     [dir3 z]
+.. list-table::
+   :header-rows: 1
 
-This attribute is currently not supported by Ansys.
+   * - Field
+     - Type
+     - Description
+   * - ``global_coord_sys``
+     - 4×3 double array
+     - Defines origin and directions for the entire model: ``[origin]``, ``[dir1]``, ``[dir2]``, and ``[dir3]`` with x/y/z components.
+
+Ansys does not currently support this attribute.
 
 Material data
-=============
+-------------
 
-material_data->fabrics->fabric(named)
--------------------------------------
+Fabric (named)
+~~~~~~~~~~~~~~
 
-material_data->fabrics->fabric(named)->orientations (Obsolete)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Path:** ``material_data → fabrics → fabric(named)``
+
+Orientations (obsolete)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+**Path:** ``material_data → fabrics → fabric(named) → orientations (obsolete)``
 
 Array of doubles.
 
@@ -153,10 +150,12 @@ Array of doubles.
    [0, 45, -45]
 
 .. note::
-   Ansys does not read or write this property. It will be removed in a future release.
+  Ansys does not read or write this property. This property may be removed in a future release.
 
-material_data->fabrics->fabric(named)->mechanical
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Mechanical
+~~~~~~~~~~
+
+**Path:** ``material_data → fabrics → fabric(named) → mechanical``
 
 
 .. list-table::
@@ -171,10 +170,10 @@ material_data->fabrics->fabric(named)->mechanical
      - uni, woven
    * - ``weight_per_area``
      - double
-     -
+     - Weight per area
    * - ``cured_thickness``
      - double
-     -
+     - Cured thickness
    * - ``E1``
      - double (optional)
      -
@@ -212,8 +211,10 @@ material_data->fabrics->fabric(named)->mechanical
      - double (optional)
      -
 
-material_data->fabrics->fabric(named)->cost
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Cost
+~~~~
+
+**Path:** ``material_data → fabrics → fabric(named) → cost``
 
 .. list-table::
    :widths: 30 20 50
@@ -224,13 +225,20 @@ material_data->fabrics->fabric(named)->cost
      - Description
    * - ``currency``
      - string
-     - EUR, USD, etc
+     - EUR, USD, etc.
    * - ``cost_per_area``
      - double
      -
 
-material_data->stackups->stackup(named)->cost
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Stackup (named)
+~~~~~~~~~~~~~~~
+
+**Path:** ``material_data → stackups → stackup(named)``
+
+Cost
+~~~~
+
+**Path:** ``material_data → stackups → stackup(named) → cost``
 
 
 .. list-table::
@@ -247,8 +255,10 @@ material_data->stackups->stackup(named)->cost
      - double
      -
 
-material_data->stackups->stackup(named)->fabric
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fabric
+~~~~~~
+
+**Path:** ``material_data → stackups → stackup(named) → fabric``
 
 .. list-table::
    :widths: 30 20 50
@@ -259,71 +269,108 @@ material_data->stackups->stackup(named)->fabric
      - Description
    * - ``number``
      - unsigned
-     - Determines order of fabrics within stackup.
+     - Defines the order of fabrics within the stackup.
    * - ``angle``
      - double
-     - Angle of fabric within stackup.
+     - Angle of the fabric within the stackup.
 
 Meshes
-======
+------
 
-meshes->mesh(named)->node_labels
---------------------------------
+Mesh (named)
+~~~~~~~~~~~~
 
-n by 1 array of integers.
+**Path:** ``meshes → mesh(named)``
 
-.. code-block:: text
+Node labels
+~~~~~~~~~~~
 
-   [unique node id]
+**Path:** ``meshes → mesh(named) → node_labels``
 
-meshes->mesh(named)->nodes
---------------------------
+.. list-table::
+   :header-rows: 1
 
-n by 3 array of doubles.
+   * - Field
+     - Type
+     - Description
+   * - ``node_labels``
+     - n×1 integer array
+     - Unique node identifiers.
 
-.. code-block:: text
+Nodes
+~~~~~
 
-   [node x]  [node y]  [node z]
+**Path:** ``meshes → mesh(named) → nodes``
 
-meshes->mesh(named)->element_labels
------------------------------------
+.. list-table::
+   :header-rows: 1
 
-n by 1 array of integers.
+   * - Field
+     - Type
+     - Description
+   * - ``nodes``
+     - n×3 double array
+     - Node coordinates ``(x, y, z)``.
 
-.. code-block:: text
+Element labels
+~~~~~~~~~~~~~~
 
-   [unique element id]
+**Path:** ``meshes → mesh(named) → element_labels``
 
-meshes->mesh(named)->element_types
-----------------------------------
+.. list-table::
+   :header-rows: 1
 
-n by 1 array of integers.
+   * - Field
+     - Type
+     - Description
+   * - ``element_labels``
+     - n×1 integer array
+     - Unique element identifiers.
 
-.. code-block:: text
+.. _meshes_element_types:
 
-   [element type]
+Element types
+~~~~~~~~~~~~~
 
-Currently, the following element types are defined:
+**Path:** ``meshes → mesh(named) → element_types``
 
-- **3:** 3 node shell
-- **4:** 4 node shell
-- **6:** 6 node shell
-- **8:** 8 node shell
+.. list-table::
+   :header-rows: 1
 
-The list of element types may be expanded in future releases, for example by using 108 and 120 for 8- and 20-node bricks.
+   * - Field
+     - Type
+     - Description
+   * - ``element_types``
+     - n×1 integer array
+     - Element type identifier for each element.
 
-meshes->mesh(named)->element_nodes
-----------------------------------
+Supported element types:
 
-n by m VLArray of integers.
+- 3-node shell
+- 4-node shell
+- 6-node shell
+- 8-node shell
 
-.. code-block:: text
+The list of element types may expand in future releases, for example with 108 and 120 for 8-node and 20-node bricks.
 
-   [node 1] [node 2] … [node m]
+Element nodes
+~~~~~~~~~~~~~
 
-Defines the element's nodes, with node indices that point directly to entries in the nodes and node_labels arrays.
+**Path:** ``meshes → mesh(named) → element_nodes``
 
-The order of the nodes must follow the indices shown below:
+.. list-table::
+   :header-rows: 1
+
+   * - Field
+     - Type
+     - Description
+   * - ``element_nodes``
+     - n×m variable-length integer array (VLArray)
+     - Node indices for each element.
+
+Defines element nodes. Node indices point directly to entries in the nodes and node_labels arrays.
+
+Node order must follow the indices shown below:
 
 - 3 nodes (linear triangle): I, J, K
 - 4 nodes (linear rectangle): I, J, K, L
@@ -339,24 +386,46 @@ The order of the nodes must follow the indices shown below:
    Click to view full size.
 
 .. note::
-   A VLArray data set is used here because the mesh can contain element of different types (see ``meshes->mesh(named)->element_types``).
+  A VLArray (variable length array) is used to support different element types (see :ref:`meshes → mesh(named) → element_types <meshes_element_types>`).
 
 
-meshes->mesh(named)->edge_sets->edge_set(named)
------------------------------------------------
+Edge set (named)
+~~~~~~~~~~~~~~~~
 
-Array of unsigned integers. Contains node indices that reference the nodes in this set.
+**Path:** ``meshes → mesh(named) → edge_sets → edge_set(named)``
 
-meshes->mesh(named)->element_sets->element_set(named)
------------------------------------------------------
+.. list-table::
+   :header-rows: 1
 
-Array of unsigned integers. Contains element indices that reference the elements in this set.
+   * - Field
+     - Type
+     - Description
+   * - ``edge_set``
+     - n×1 unsigned integer array
+     - Node indices that reference nodes in this set.
+
+Element set (named)
+~~~~~~~~~~~~~~~~~~~
+
+**Path:** ``meshes → mesh(named) → element_sets → element_set(named)``
+
+.. list-table::
+   :header-rows: 1
+
+   * - Field
+     - Type
+     - Description
+   * - ``element_set``
+     - n×1 unsigned integer array
+     - Element indices that reference elements in this set.
 
 Components
-==========
+----------
 
-components->component(named)
-----------------------------
+Component (named)
+~~~~~~~~~~~~~~~~~
+
+**Path:** ``components → component(named)``
 
 Attributes:
 
@@ -372,7 +441,7 @@ Attributes:
      - ply, core, etc.
    * - ``layer_id``
      - integer
-     - The step value and global identifier. It determines the order of the plies (increasing from bottom to top).
+     - The step value and global identifier. It defines ply order from bottom to top.
    * - ``orientation``
      - double
      - The nominal orientation angle relative to the reference direction.
@@ -381,66 +450,79 @@ Attributes:
      -
 
 .. note::
-   The mapping_type attribute is optional and will be detailed later; because ACP can use multiple rosettes
+   The mapping_type attribute is optional and is detailed later. Because ACP can use multiple rosettes
    to define a ply's reference direction, several mapping types are defined, including interpolation algorithms such as "minimum distance" and "minimum angle."
 
-components->component(named)->placement_coord_sys
--------------------------------------------------
+Placement coordinate system
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-4 by 3 array of doubles.
+**Path:** ``components → component(named) → placement_coord_sys``
 
-.. code-block:: text
+.. list-table::
+   :header-rows: 1
 
-   [origin x]   [origin y]   [origin z]
-   [dir1 x]     [dir1 y]     [dir1 z]
-   [dir2 x]     [dir2 y]     [dir2 z]
-   [normal x]   [normal y]   [normal z]
+   * - Field
+     - Type
+     - Description
+   * - ``placement_coord_sys``
+     - 4×3 double array
+     - Placement coordinate system rows: ``[origin]``, ``[dir1]``, ``[dir2]``, and ``[normal]`` with x/y/z components.
 
-The placement_coord_sys is used for two purposes:
+The placement_coord_sys has two purposes:
 
 - Its normal defines the default offset direction of the layup.
 - Its origin and dir1 define the starting point and initial direction of the draping calculation.
 
-components->component(named)->material
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Material
+~~~~~~~~
+
+**Path:** ``components → component(named) → material``
 
 **Softlink**
 
-Defines the ply material and refers to an object in ``material_data->fabrics`` or ``material_data->stackups``.
+Defines the ply material and refers to an object in ``material_data → fabrics`` or ``material_data → stackups``.
 
-components->component(named)->element_set
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Element set
+~~~~~~~~~~~
+
+**Path:** ``components → component(named) → element_set``
 
 **Softlink**
 
 Defines a link to an element set of a mesh and specifies the ply extent.
 
-components->component(named)->data_map
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Data map
+~~~~~~~~
+
+**Path:** ``components → component(named) → data_map``
 
 **Softlink**
 
 Defines a link to the data map of this component.
 
-The following restrictions and rules apply:
+The following rules apply:
 
-- If the data_map contains a thickness, a "material" of type ``material_data->stackups`` is not supported.
-- If ``data_map->thickness`` is not defined, the thickness is computed from ``cured_thickness`` when the material is a "fabric," or from the sum of all ``cured_thickness`` values when ``material_data->stackup``.
-- If matorient_1_angles is not present, it set equal to ``component->orientation``.
-- If matorient_2_angles is not present, it is computed as: matorient_2_angles = matorient_1_angles + 90°.
+- If the data map contains a thickness, a material of type ``material_data → stackups`` is not supported.
+- If ``data_map → thickness`` is not defined, thickness is computed from ``cured_thickness`` when the material is a fabric, or from the sum of all ``cured_thickness`` values when ``material_data → stackups``.
+- If ``matorient_1_angles`` is not present, it is set equal to ``component → orientation``.
+- If ``matorient_2_angles`` is not present, it is computed as: ``matorient_2_angles = matorient_1_angles + 90°``.
 
-components->component(named)->rosettes->rosette(named)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Rosette (named)
+~~~~~~~~~~~~~~~
+
+**Path:** ``components → component(named) → rosettes → rosette(named)``
 
 **Softlink (Optional)**
 
 Defines a link to the rosettes of this component.
 
 Rosettes
-========
+--------
 
-rosettes->rosette(named)
-------------------------
+Rosette (named)
+~~~~~~~~~~~~~~~
+
+**Path:** ``rosettes → rosette(named)``
 
 Attributes:
 
@@ -456,71 +538,137 @@ Attributes:
      -
 
 .. note::
-   The possible values of the rosette mapping_type are not yet specified. FiberSIM defines the mapping types "translational," "standard," and "rotational."
-   ACP defines the standard rosette types "parallel," "radial," "cylindrical," and "spherical." The exact definition of this attribute has been postponed
+   The possible values of the rosette mapping_type are not yet specified. FiberSIM defines the mapping types as "translational", "standard", or "rotational".
+   ACP defines the standard rosette types as "parallel", "radial", "cylindrical", or "spherical". The exact definition of this attribute has been postponed
    because this information is optional and is not required to map the ply orientation field correctly.
 
-rosettes->rosette(named)->coord_sys
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Coordinate system
+~~~~~~~~~~~~~~~~~
 
-4 by 3 array of doubles.
+**Path:** ``rosettes → rosette(named) → coord_sys``
 
-.. code-block:: text
+.. list-table::
+   :header-rows: 1
 
-   [origin x]   [origin y]   [origin z]
-   [dir1 x]     [dir1 y]     [dir1 z]
-   [dir2 x]     [dir2 y]     [dir2 z]
-   [normal x]   [normal y]   [normal z]
+   * - Field
+     - Type
+     - Description
+   * - ``coord_sys``
+     - 4×3 double array
+     - Rosette coordinate system rows: ``[origin]``, ``[dir1]``, ``[dir2]``, and ``[normal]`` with x/y/z components.
 
 Data maps
-=========
+---------
 
-data_maps->data_map(named)->element_set/node/node_set
------------------------------------------------------
+Data map (named)
+~~~~~~~~~~~~~~~~
 
-Defines a link to an element set of a mesh or to an edge_set of a mesh. This link specifies the positions where the orientations, thicknesses, and other values are defined.
+**Path:** ``data_maps → data_map(named)``
 
-data_maps->data_map(named)->reference_directions
-------------------------------------------------
+Element/node set link
+~~~~~~~~~~~~~~~~~~~~~
 
-n by 3 array of doubles.
+**Path:** ``data_maps → data_map(named) → element_set/node/node_set``
 
-Defines the reference directions using absolute direction vectors.
+.. list-table::
+   :header-rows: 1
 
-data_maps->data_map(named)->normals
------------------------------------
+   * - Field
+     - Type
+     - Description
+   * - ``element_set`` / ``node_set``
+     - softlink
+     - Link to a mesh element set or edge set where orientations, thicknesses, and other values are defined.
 
-n by 3 array of doubles (optional).
+Reference directions
+~~~~~~~~~~~~~~~~~~~~
 
-Defines the normal directions using absolute direction vectors. If present, these vectors can be used to project the reference direction onto the plane defined by the normal.
+**Path:** ``data_maps → data_map(named) → reference_directions``
 
-data_maps->data_map(named)->matorient_1_angles
-----------------------------------------------
+.. list-table::
+   :header-rows: 1
 
-n by 1 array of doubles (optional).
+   * - Field
+     - Type
+     - Description
+   * - ``reference_directions``
+     - n×3 double array
+     - Reference directions as absolute direction vectors.
 
-Defines the material orientation 1 angles with respect to the reference direction and the given normal.
+Normals
+~~~~~~~
 
-data_maps->data_map(named)->matorient_2_angles
-----------------------------------------------
+**Path:** ``data_maps → data_map(named) → normals``
 
-n by 1 array of doubles (optional).
+.. list-table::
+   :header-rows: 1
 
-Defines the material orientation 2 angles with respect to the reference direction and the given normal.
+   * - Field
+     - Type
+     - Description
+   * - ``normals``
+     - n×3 double array (optional)
+     - Normal directions as absolute vectors used to project the reference direction onto the normal plane.
 
-data_maps->data_map(named)->thicknesses
----------------------------------------
+Matorient 1 angles
+~~~~~~~~~~~~~~~~~~
 
-n by 1 array of doubles (optional).
+**Path:** ``data_maps → data_map(named) → matorient_1_angles``
 
-Defines position dependent thickness values.
+.. list-table::
+   :header-rows: 1
 
-data_maps->data_map(named)->scalar_user_data->scalar_user_data(named)
----------------------------------------------------------------------
+   * - Field
+     - Type
+     - Description
+   * - ``matorient_1_angles``
+     - n×1 double array (optional)
+     - Material orientation 1 angles relative to the reference direction and given normal.
 
-n by 1 array of doubles (optional).
+Matorient 2 angles
+~~~~~~~~~~~~~~~~~~
 
-User-defined scalar data fields. Only supported by Ansys.
+**Path:** ``data_maps → data_map(named) → matorient_2_angles``
+
+.. list-table::
+   :header-rows: 1
+
+   * - Field
+     - Type
+     - Description
+   * - ``matorient_2_angles``
+     - n×1 double array (optional)
+     - Material orientation 2 angles relative to the reference direction and given normal.
+
+Thicknesses
+~~~~~~~~~~~
+
+**Path:** ``data_maps → data_map(named) → thicknesses``
+
+.. list-table::
+   :header-rows: 1
+
+   * - Field
+     - Type
+     - Description
+   * - ``thicknesses``
+     - n×1 double array (optional)
+     - Position-dependent thickness values.
+
+Scalar user data (named)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Path:** ``data_maps → data_map(named) → scalar_user_data → scalar_user_data(named)``
+
+.. list-table::
+   :header-rows: 1
+
+   * - Field
+     - Type
+     - Description
+   * - ``scalar_user_data``
+     - n×1 double array (optional)
+     - User-defined scalar data field. Only supported by Ansys.
 
 
 .. list-table::
@@ -535,19 +683,19 @@ User-defined scalar data fields. Only supported by Ansys.
      - "dimensionless", "length", "mass", "time", "temp" (default: "dimensionless")
 
 Component groups
-================
+----------------
 
-component_groups->component_group(named)
-----------------------------------------
+Component group (named)
+~~~~~~~~~~~~~~~~~~~~~~~
 
-Optional.
-
-Component groups can be defined to store grouping information of components.
+**Path:** ``component_groups → component_group(named)``
 
 
+
+Component groups are optional. You can define them to store grouping information of components.
 
 Change log
-==========
+----------
 
 .. list-table::
    :widths: 15 50
