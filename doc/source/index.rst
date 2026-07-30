@@ -41,7 +41,7 @@ Use the cards below to explore the documentation.
 
 .. toctree::
     :hidden:
-    
+
     getting_started.rst
     user_guide.rst
     api.rst

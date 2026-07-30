@@ -22,12 +22,12 @@ The package includes:
 Key concepts
 ------------
 
-The HDF5 composite CAE format uses three core concepts: mesh, component, and data map. 
+The HDF5 composite CAE format uses three core concepts: mesh, component, and data map.
 
 Mesh
 ~~~~
 
-A mesh stores geometric information consisting of nodes and elements, forming the foundation 
+A mesh stores geometric information consisting of nodes and elements, forming the foundation
 for defining composite layups.
 
 Component
