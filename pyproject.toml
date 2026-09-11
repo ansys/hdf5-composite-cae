@@ -37,7 +37,7 @@ tests = [
 ]
 
 dev = [
-    "pre-commit==4.5.1",
+    "pre-commit==4.6.2",
 ]
 
 doc = [
