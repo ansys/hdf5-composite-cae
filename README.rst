@@ -1,7 +1,7 @@
 HDF5 Composite CAE
 ==================
 
-|pyansys| |python| |pypi| |MIT| |black| |pre-commit|
+|pyansys| |python| |pypi| |Apache-2.0| |black| |pre-commit|
 
 .. |pyansys| image:: https://img.shields.io/badge/Py-Ansys-ffc107.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABDklEQVQ4jWNgoDfg5+9ioKhgYGBgYGD4////MhoG+v////8/Pz8/AwMDAwMA+gD7/+3bt4uLi2tqaiorK+vo6Ojr6+vt7e3x8fHy8vLx8fHy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8fHw8PDv7+/r6+vo6Ojn5+fn5+fm5ubm5ubl5eXk5OTj4+Pi4uLh4eHh4eHg4ODf39/e3t7d3d3c3Nza2trbf39/c3NzbGxsbGxsbGxsa2trattsa2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2trattsa2tratt7e3t7e3t7e3tra2tra2tra2tra2tra2tra2trbWxsb////////7AAAAA0JREFUeNqNkF1OAyEUhI+Pj9/////f39/c3Nzb29va2tra2trZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2Nj4/////v7+7u7u7Ozs7Ozs6+vr6urq6enp6Ojo5+fn5ubm5OTk4+Pj4ODg39/f3d3d2dnZ2NjY19fX1dXV0tLS0NDQz8/Pzc3Ny8vLycnJx8fHxcXFw8PDwsLCv7+/vb29ubm5t7e3tbW1s7Ozr6+vra2tq6urqamppaWloqKinp6enJycmJiYlZWVk5OTkJCQjo6Oi4uLiYmJh4eHhYWFg4ODgYGBf39/fX19e3t7eXl5d3d3dXV1c3NzbW1ta2trZ2dnY2NjX19fW1tbV1dXU1NTT09PS0tLR0dHQ0NDPz8/Ozs7MzMzKysrIyMjGxsbExMTCwsLAwMC/v7+9vb26urq4uLi2tra0tLSysrKwsLCurq6srKyqqqqoqKimpqakpKSioqKgoKCenp6cnJyampqYmJiWlpaUlJSSkpKQkJCOjo6MjIyKioqIiIiGhoaEhISCgoKAgIB+fn58fHx6enp4eHh2dnZ0dHRycnJwcHBubm5sbGxqampnZ2dlZWVjY2NeXl5cXFxaWlpXV1dVVVVTU1NRUVFPT09NTU1LS0tJSUlHR0dFRUVDQ0M/Pz89PT07Ozs5OTk3Nzc1NTUzMzMxMTEvLy8tLS0rKysn
    :target: https://docs.pyansys.com/
@@ -15,9 +15,9 @@ HDF5 Composite CAE
    :target: https://pypi.org/project/ansys-hdf5-composite-cae
    :alt: PyPI
 
-.. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
-   :target: https://opensource.org/licenses/MIT
-   :alt: MIT
+.. |Apache-2.0| image::  https://img.shields.io/badge/License-Apache%202.0-blue.svg
+   :target: https://opensource.org/license/Apache-2.0
+   :alt: Apache-2.0
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat
    :target: https://github.com/psf/black
@@ -156,7 +156,7 @@ All contributions are subject to the project's `Code of Conduct <CODE_OF_CONDUCT
 License
 -------
 
-This project is licensed under the MIT License. See the `LICENSE <LICENSE>`_ file for details.
+This project is licensed under the Apache 2.0 License. See the `LICENSE <LICENSE>`_ file for details.
 
 Copyright (c) 2026 ANSYS, Inc. All rights reserved.
 

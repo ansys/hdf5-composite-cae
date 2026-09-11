@@ -146,5 +146,5 @@ License
 -------
 
 By contributing, you agree that your contributions are licensed
-under the project's MIT License.
+under the project's Apache 2.0 License.
 
