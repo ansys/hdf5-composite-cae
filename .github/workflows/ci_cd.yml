@@ -19,155 +19,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
-
-  style:
-    name: Code style
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          persist-credentials: false
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-      - name: Install pre-commit
-        run: |
-          python -m pip install pre-commit
-          pre-commit install
-      - name: Run pre-commit
-        run: pre-commit run --all-files --show-diff-on-failure
-
-  doc-style:
-    name: "Documentation style"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ansys/actions/doc-style@12ca08fd7f0caa52076cca15c5621482646f8560 # v10.3.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-  tests:
-    name: "Tests"
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-       os: [ubuntu-latest, windows-latest]
-       python-version: ['3.10', '3.11', '3.12', "3.13", "3.14"]
-      fail-fast: false
-    steps:
-      - name: "Run pytest"
-        uses: ansys/actions/tests-pytest@d946b24b9a765f4169bcc94afdb27bd1a0533741 # v10.3.2
-        with:
-          python-version: ${{ matrix.python-version }}
-          group-dependencies-name: 'tests'
-
-
-  doc-build:
-    name: "Building library documentation"
-    runs-on: ubuntu-latest
-    needs: doc-style
-    steps:
-      - name: "Run Ansys documentation building action"
-        uses: ansys/actions/doc-build@v10.3
-        with:
-          requires-xvfb: true
-          group-dependencies-name: 'doc'
-
-  build-library:
-    name: "Build library"
-    runs-on: ubuntu-latest
-    needs: [doc-build, tests]
-    steps:
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
-        with:
-          activate-environment: true
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-      - name: "Checkout the project"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          persist-credentials: false
-
-      - name: "Set up Python ${{ matrix.python-version }}"
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: build
-        run: |
-          uv lock --check
-          uv build
-
-  doc-deploy-dev:
-    name: "Deploy development documentation"
-    runs-on: ubuntu-latest
-    needs: [build-library]
-    if: github.event_name == 'push'
-    steps:
-      - uses: ansys/actions/doc-deploy-dev@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
-        with:
-          cname: ${{ env.DOCUMENTATION_CNAME }}
-          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
-          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
-
-  doc-deploy-stable:
-    name: "Deploy stable documentation"
-    runs-on: ubuntu-latest
-    needs: [build-library, release]
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-    steps:
-      - name: Deploy the stable documentation
-        uses: ansys/actions/doc-deploy-stable@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
-        with:
-          cname: ${{ env.DOCUMENTATION_CNAME }}
-          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
-          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
-
-  build-wheelhouse:
-    name: "Build wheelhouse for latest Python versions"
-    runs-on: ${{ matrix.os }}
-    needs: [doc-style, doc-build, tests]
-    strategy:
-      matrix:
-          os: [ubuntu-latest, windows-latest]
-          python-version: ['3.10', '3.11', '3.12', '3.13','3.14']
-    steps:
-      - name: "Build a wheelhouse of the Python library"
-        uses: ansys/actions/build-wheelhouse@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
-        with:
-          library-name: ${{ env.LIBRARY_NAME }}
-          operating-system: ${{ matrix.os }}
-          python-version: ${{ matrix.python-version }}
-          whitelist-license-check: "attrs" # This has MIT license but fails the check
-
-  release:
-    name: Release project
-    if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags') }}
-    needs: build-library
-    runs-on: ubuntu-latest
-    # INFO: Specifying a GitHub environment is optional but encouraged
-    environment: release
-    # INFO: Trusted publishers require these permissions
-    permissions:
-      id-token: write
-      contents: write
-    steps:
-
-      - name: "Download the library artifacts from build-library step"
-        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
-        with:
-          name: ${{ env.LIBRARY_NAME }}-artifacts
-          path: ${{ env.LIBRARY_NAME }}-artifacts
-
-      - name: "Upload artifacts to PyPI using trusted publisher"
-        uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # v1.12.4
-        with:
-          repository-url: "https://upload.pypi.org/legacy/"
-          print-hash: true
-          packages-dir: ${{ env.LIBRARY_NAME }}-artifacts
-          skip-existing: false
 
   vulnerabilities:
     name: Vulnerabilities
@@ -182,11 +37,167 @@ jobs:
           dev-mode: ${{ github.ref != 'refs/heads/main' }}
           hide-log: false
 
-
   check-pr-title:
     name: "Check pull-request title follows conventional commits"
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
     steps:
-      - uses: ansys/actions/check-pr-title@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
+      - uses: ansys/actions/check-pr-title@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  update-changelog:
+    name: "Update CHANGELOG (on release)"
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to create the changelog on the release branch
+      pull-requests: write # Required to create on main the associated PR with the changelog
+    steps:
+      - uses: ansys/actions/doc-deploy-changelog@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        with:
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
+
+  style:
+    name: Code style
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to push the fixes applied by the hooks
+      pull-requests: write # Required to comment on issues that cannot be fixed automatically
+    env:
+      GH_ACTOR_EMAIL: ${{ github.actor }}@users.noreply.github.com
+    steps:
+      - name: PyAnsys code style checks
+        uses: ansys/actions/code-style@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          commit-changes: true
+          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME || github.actor }}
+          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL || env.GH_ACTOR_EMAIL }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN || github.token }}
+
+  doc-style:
+    name: "Documentation style"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ansys/actions/doc-style@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  tests:
+    name: "Tests"
+    runs-on: ${{ matrix.os }}
+    needs: [style]
+    strategy:
+      matrix:
+       os: [ubuntu-latest, windows-latest]
+       python-version: ["3.12", "3.13", "3.14"]
+      fail-fast: false
+    steps:
+      - name: "Run pytest"
+        uses: ansys/actions/tests-pytest@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          group-dependencies-name: 'tests'
+
+
+  doc-build:
+    name: "Building library documentation"
+    runs-on: ubuntu-latest
+    needs: [doc-style]
+    steps:
+      - name: "Run Ansys documentation building action"
+        uses: ansys/actions/doc-build@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        with:
+          requires-xvfb: true
+          group-dependencies-name: 'doc'
+
+  build-library:
+    name: "Build library"
+    runs-on: ubuntu-latest
+    needs: [doc-build, tests]
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - name: "Build library source and wheel artifacts"
+        uses: ansys/actions/build-library@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          attest-provenance: true
+
+  build-wheelhouse:
+    name: "Build wheelhouse for latest Python versions"
+    runs-on: ${{ matrix.os }}
+    needs: [style, doc-style]
+    strategy:
+      matrix:
+          os: [ubuntu-latest, windows-latest]
+          python-version: ["3.12", "3.13", "3.14"]
+    steps:
+      - name: "Build a wheelhouse of the Python library"
+        uses: ansys/actions/build-wheelhouse@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          operating-system: ${{ matrix.os }}
+          python-version: ${{ matrix.python-version }}
+          whitelist-license-check: "attrs" # This has MIT license but fails the check
+
+  release:
+    name: Release project
+    if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags') }}
+    needs: [build-library, build-wheelhouse, update-changelog]
+    runs-on: ubuntu-latest
+    # INFO: Specifying a GitHub environment is optional but encouraged
+    environment: release
+    # INFO: Trusted publishers require these permissions
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - name: "Release to GitHub"
+        uses: ansys/actions/release-github@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          library-name: ${{ env.LIBRARY_NAME }}
+          add-artifact-attestation-notes: true
+
+      - name: "Upload artifacts to PyPI using trusted publisher"
+        uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # v1.12.4
+        with:
+          repository-url: "https://upload.pypi.org/legacy/"
+          print-hash: true
+          packages-dir: ${{ env.LIBRARY_NAME }}-artifacts
+          skip-existing: false
+
+  doc-deploy-dev:
+    name: "Deploy development documentation"
+    runs-on: ubuntu-latest
+    needs: [build-library]
+    if: github.event_name == 'push'
+    steps:
+      - uses: ansys/actions/doc-deploy-dev@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        with:
+          cname: ${{ env.DOCUMENTATION_CNAME }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
+
+  doc-deploy-stable:
+    name: "Deploy stable documentation"
+    runs-on: ubuntu-latest
+    needs: [release]
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+    steps:
+      - name: Deploy the stable documentation
+        uses: ansys/actions/doc-deploy-stable@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        with:
+          cname: ${{ env.DOCUMENTATION_CNAME }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}

@@ -40,6 +40,8 @@ Koenig
 Mennel
 Roos
 Rickenbach
+Synopsys
+synopsys
 von
 Wintermantel
 Vistagy
