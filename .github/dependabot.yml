@@ -17,9 +17,9 @@ updates:
     commit-message:
       prefix: "build"
     groups:
-      grpc-deps:
+      uv-deps:
         patterns:
-          - "grpc*"
+          - "*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
