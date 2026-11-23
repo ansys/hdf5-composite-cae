@@ -122,6 +122,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
+      attestations: write
     steps:
       - name: "Build library source and wheel artifacts"
         uses: ansys/actions/build-library@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
