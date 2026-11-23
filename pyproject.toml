@@ -97,7 +97,6 @@ log_cli_format = "[%(asctime)s | %(levelname)s] %(message)s (%(filename)s:%(line
 log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 addopts = "--cov=ansys.hdf5_composite_cae --cov-report=term --cov-report=xml --cov-report=html --cov-append"
 
-
 filterwarnings = [
     "ignore::DeprecationWarning",
 ]
