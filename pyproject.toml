@@ -8,7 +8,7 @@ version = "0.1.dev0"
 description = "A utility library for the HDF5 composite CAE format"
 license = "Apache-2.0"
 authors = [{ name = "ANSYS, Inc."}]
-requires-python = ">=3.10,<3.15"
+requires-python = ">=3.12,<3.15"
 maintainers = [{ name = "ANSYS, Inc."}]
 readme = "README.rst"
 classifiers = [
@@ -16,8 +16,6 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Information Analysis",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
