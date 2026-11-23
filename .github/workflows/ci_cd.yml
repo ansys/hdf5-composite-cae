@@ -19,31 +19,34 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
 
   style:
     name: Code style
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to push the fixes applied by the hooks
+      pull-requests: write # Required to comment on issues that cannot be fixed automatically
+    env:
+      GH_ACTOR_EMAIL: ${{ github.actor }}@users.noreply.github.com
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          persist-credentials: false
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - name: PyAnsys code style checks
+        uses: ansys/actions/code-style@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-      - name: Install pre-commit
-        run: |
-          python -m pip install pre-commit
-          pre-commit install
-      - name: Run pre-commit
-        run: pre-commit run --all-files --show-diff-on-failure
+          commit-changes: true
+          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME || github.actor }}
+          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL || env.GH_ACTOR_EMAIL }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN || github.token }}
 
   doc-style:
     name: "Documentation style"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/doc-style@12ca08fd7f0caa52076cca15c5621482646f8560 # v10.3.1
+      - uses: ansys/actions/doc-style@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -53,11 +56,11 @@ jobs:
     strategy:
       matrix:
        os: [ubuntu-latest, windows-latest]
-       python-version: ['3.10', '3.11', '3.12', "3.13", "3.14"]
+       python-version: ["3.12", "3.13", "3.14"]
       fail-fast: false
     steps:
       - name: "Run pytest"
-        uses: ansys/actions/tests-pytest@d946b24b9a765f4169bcc94afdb27bd1a0533741 # v10.3.2
+        uses: ansys/actions/tests-pytest@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
           python-version: ${{ matrix.python-version }}
           group-dependencies-name: 'tests'
@@ -69,7 +72,7 @@ jobs:
     needs: doc-style
     steps:
       - name: "Run Ansys documentation building action"
-        uses: ansys/actions/doc-build@v10.3
+        uses: ansys/actions/doc-build@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
           requires-xvfb: true
           group-dependencies-name: 'doc'
@@ -79,24 +82,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [doc-build, tests]
     steps:
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
+      - name: "Build library source and wheel artifacts"
+        uses: ansys/actions/build-library@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
-          activate-environment: true
+          library-name: ${{ env.LIBRARY_NAME }}
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-      - name: "Checkout the project"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          persist-credentials: false
-
-      - name: "Set up Python ${{ matrix.python-version }}"
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: build
-        run: |
-          uv lock --check
-          uv build
+          attest-provenance: true
 
   doc-deploy-dev:
     name: "Deploy development documentation"
@@ -104,7 +95,7 @@ jobs:
     needs: [build-library]
     if: github.event_name == 'push'
     steps:
-      - uses: ansys/actions/doc-deploy-dev@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
+      - uses: ansys/actions/doc-deploy-dev@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
@@ -118,7 +109,7 @@ jobs:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
     steps:
       - name: Deploy the stable documentation
-        uses: ansys/actions/doc-deploy-stable@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
+        uses: ansys/actions/doc-deploy-stable@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
@@ -132,10 +123,10 @@ jobs:
     strategy:
       matrix:
           os: [ubuntu-latest, windows-latest]
-          python-version: ['3.10', '3.11', '3.12', '3.13','3.14']
+          python-version: ["3.12", "3.13", "3.14"]
     steps:
       - name: "Build a wheelhouse of the Python library"
-        uses: ansys/actions/build-wheelhouse@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
+        uses: ansys/actions/build-wheelhouse@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
           library-name: ${{ env.LIBRARY_NAME }}
           operating-system: ${{ matrix.os }}
@@ -154,12 +145,12 @@ jobs:
       id-token: write
       contents: write
     steps:
-
-      - name: "Download the library artifacts from build-library step"
-        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
+      - name: "Release to GitHub"
+        uses: ansys/actions/release-github@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
-          name: ${{ env.LIBRARY_NAME }}-artifacts
-          path: ${{ env.LIBRARY_NAME }}-artifacts
+          token: ${{ secrets.GITHUB_TOKEN }}
+          library-name: ${{ env.LIBRARY_NAME }}
+          add-artifact-attestation-notes: true
 
       - name: "Upload artifacts to PyPI using trusted publisher"
         uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # v1.12.4
@@ -182,11 +173,10 @@ jobs:
           dev-mode: ${{ github.ref != 'refs/heads/main' }}
           hide-log: false
 
-
   check-pr-title:
     name: "Check pull-request title follows conventional commits"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/check-pr-title@1f4f0896a8e49d3aec2f02ced215b04a32c85f28 # v10.2.7
+      - uses: ansys/actions/check-pr-title@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
