@@ -142,6 +142,7 @@ Build documentation
 --------------------
 
 .. code:: bash
+
     python scripts/build.py build_doc
 
 
