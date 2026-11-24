@@ -16,6 +16,11 @@ release = version = __version__
 switcher_version = get_version_match(__version__)
 cname = os.getenv("DOCUMENTATION_CNAME", "docs.pyansys.com")
 
+# Base name of the generated PDF. Used both for the LaTeX output (see
+# ``latex_documents`` below) and for the "Download documentation in PDF" icon
+# link, so the two can never drift apart.
+pdf_basename = "ansys-hdf5-composite-cae"
+
 # Select desired logo, theme, and declare the html title
 html_logo = logo
 html_theme = "ansys_sphinx_theme"
@@ -45,13 +50,14 @@ html_theme_options = {
         },
         {
             "name": "Download documentation in PDF",
-            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-hdf5-composite-cae.pdf",  # noqa: E501
+            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/{pdf_basename}.pdf",  # noqa: E501
             "icon": "fa fa-file-pdf fa-fw",
         },
     ],
     "ansys_sphinx_theme_autoapi": {
         "project": project,
     },
+    "show_toc_level": 3,
 }
 
 html_context = {
@@ -59,11 +65,6 @@ html_context = {
     "github_repo": "hdf5-composite-cae",
     "github_version": "main",
     "doc_path": "doc/source",
-}
-
-
-html_theme_options = {
-    "show_toc_level": 3,
 }
 
 # Sphinx extensions
@@ -122,3 +123,9 @@ source_suffix = ".rst"
 
 # The master toctree document.
 master_doc = "index"
+
+# Force the LaTeX/PDF output file name to match the PDF icon link above.
+# Without this, Sphinx derives it from ``project``.
+latex_documents = [
+    (master_doc, f"{pdf_basename}.tex", html_title, author, "manual"),
+]
