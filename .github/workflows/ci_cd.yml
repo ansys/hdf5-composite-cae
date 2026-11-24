@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: PyAnsys Vulnerability check
-        uses: ansys/actions/check-vulnerabilities@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        uses: ansys/actions/check-vulnerabilities@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.LIBRARY_NAME }}
@@ -43,7 +43,7 @@ jobs:
     permissions:
       pull-requests: read
     steps:
-      - uses: ansys/actions/check-pr-title@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+      - uses: ansys/actions/check-pr-title@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -55,7 +55,7 @@ jobs:
       contents: write # Required to create the changelog on the release branch
       pull-requests: write # Required to create on main the associated PR with the changelog
     steps:
-      - uses: ansys/actions/doc-deploy-changelog@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+      - uses: ansys/actions/doc-deploy-changelog@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
           bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
@@ -64,7 +64,6 @@ jobs:
   style:
     name: Code style
     runs-on: ubuntu-latest
-    if: ${{ !startsWith(github.ref, 'refs/tags/') }}
     permissions:
       contents: write # Required to push the fixes applied by the hooks
       pull-requests: write # Required to comment on issues that cannot be fixed automatically
@@ -72,7 +71,7 @@ jobs:
       GH_ACTOR_EMAIL: ${{ github.actor }}@users.noreply.github.com
     steps:
       - name: PyAnsys code style checks
-        uses: ansys/actions/code-style@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        uses: ansys/actions/code-style@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           commit-changes: true
@@ -84,12 +83,13 @@ jobs:
     name: "Documentation style"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/doc-style@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+      - uses: ansys/actions/doc-style@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
   tests:
     name: "Tests"
+    needs: [style]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -98,7 +98,7 @@ jobs:
       fail-fast: false
     steps:
       - name: "Run pytest"
-        uses: ansys/actions/tests-pytest@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        uses: ansys/actions/tests-pytest@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           python-version: ${{ matrix.python-version }}
           group-dependencies-name: 'tests'
@@ -110,7 +110,7 @@ jobs:
     needs: [doc-style]
     steps:
       - name: "Run Ansys documentation building action"
-        uses: ansys/actions/doc-build@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        uses: ansys/actions/doc-build@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           requires-xvfb: true
           group-dependencies-name: 'doc'
@@ -125,7 +125,7 @@ jobs:
       attestations: write
     steps:
       - name: "Build library source and wheel artifacts"
-        uses: ansys/actions/build-library@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        uses: ansys/actions/build-library@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           library-name: ${{ env.LIBRARY_NAME }}
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
@@ -134,14 +134,14 @@ jobs:
   build-wheelhouse:
     name: "Build wheelhouse for latest Python versions"
     runs-on: ${{ matrix.os }}
-    needs: [doc-style]
+    needs: [style, doc-style]
     strategy:
       matrix:
           os: [ubuntu-latest, windows-latest]
           python-version: ["3.12", "3.13", "3.14"]
     steps:
       - name: "Build a wheelhouse of the Python library"
-        uses: ansys/actions/build-wheelhouse@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        uses: ansys/actions/build-wheelhouse@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           library-name: ${{ env.LIBRARY_NAME }}
           operating-system: ${{ matrix.os }}
@@ -161,7 +161,7 @@ jobs:
       contents: write
     steps:
       - name: "Release to GitHub"
-        uses: ansys/actions/release-github@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        uses: ansys/actions/release-github@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           library-name: ${{ env.LIBRARY_NAME }}
@@ -181,7 +181,7 @@ jobs:
     needs: [build-library]
     if: github.event_name == 'push'
     steps:
-      - uses: ansys/actions/doc-deploy-dev@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+      - uses: ansys/actions/doc-deploy-dev@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
@@ -195,7 +195,7 @@ jobs:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
     steps:
       - name: Deploy the stable documentation
-        uses: ansys/actions/doc-deploy-stable@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
+        uses: ansys/actions/doc-deploy-stable@06390ed64756cfc992121a6d6626a811e352c0e9 # v11.2.1
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
