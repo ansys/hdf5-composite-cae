@@ -74,7 +74,6 @@ jobs:
         uses: ansys/actions/code-style@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          commit-changes: true
           bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME || github.actor }}
           bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL || env.GH_ACTOR_EMAIL }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN || github.token }}
