@@ -25,7 +25,7 @@ wheels = [
 
 [[package]]
 name = "ansys-hdf5-composite-cae"
-version = "0.1.dev0"
+version = "0.1.0"
 source = { editable = "." }
 default-groups = []
 dependencies = [

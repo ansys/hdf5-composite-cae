@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "ansys-hdf5-composite-cae"
-version = "0.1.dev0"
+version = "0.1.0"
 description = "A utility library for the HDF5 composite CAE format"
 license = "Apache-2.0"
 authors = [{ name = "ANSYS, Inc."}]
