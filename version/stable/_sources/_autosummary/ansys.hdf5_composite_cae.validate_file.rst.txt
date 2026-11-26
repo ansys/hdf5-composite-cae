@@ -1,0 +1,6 @@
+﻿validate\_file
+==============
+
+.. currentmodule:: ansys.hdf5_composite_cae
+
+.. autofunction:: validate_file

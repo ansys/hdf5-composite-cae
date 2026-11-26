@@ -1,0 +1,1652 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Format specification &#8212; pyhdf5-composite-cae-library</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="_static/documentation_options.js?v=38b66d78"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'specification';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hdf5-composite-cae.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contribute" href="contribute.html" />
+    <link rel="prev" title="create_minimal_h5_file" href="_autosummary/ansys.hdf5_composite_cae.create_minimal_h5_file.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0" />
+  
+  <link rel="canonical" href="https://hdf5-composite-cae.docs.pyansys.com/version/stable/specification.html" />
+  <meta name="robots" content="noindex, follow" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="pyhdf5-composite-cae-library - Home"/>
+    <img src="_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="pyhdf5-composite-cae-library - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html" title="pyhdf5-composite-cae-library home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Format specification
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="contribute.html">
+    Contribute
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/hdf5-composite-cae" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/hdf5-composite-cae/discussions" title="Support" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Support</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://hdf5-composite-cae.docs.pyansys.com/version/0.1/_static/assets/download/ansys-hdf5-composite-cae.pdf" title="Download documentation in PDF" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-file-pdf fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Download documentation in PDF</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html" title="pyhdf5-composite-cae-library home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Format specification
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="contribute.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/hdf5-composite-cae" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/hdf5-composite-cae/discussions" title="Support" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Support</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://hdf5-composite-cae.docs.pyansys.com/version/0.1/_static/assets/download/ansys-hdf5-composite-cae.pdf" title="Download documentation in PDF" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-file-pdf fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Download documentation in PDF</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Format specification</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="format-specification">
+<span id="specification"></span><h1>Format specification<a class="headerlink" href="#format-specification" title="Link to this heading">#</a></h1>
+<p>This document defines the specification for the HDF5 composite CAE format. Use this format to exchange composite layup data between computer-aided engineering (CAE) tools.</p>
+<p>Use the following concepts in this format:</p>
+<ul class="simple">
+<li><p><strong>Mesh</strong>: A mesh stores geometric information consisting of nodes and elements.</p></li>
+<li><p><strong>Component</strong>: A component represents a layer in the composite structure. Each component references a mesh and data map.</p></li>
+<li><p><strong>Data map</strong>: A data map stores data for each element or node in a mesh, including thickness, reference direction, and fiber direction.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>HDF5 is a binary format. Use a viewer such as <a class="reference external" href="https://www.hdfgroup.org/download-hdfview/">HDFView</a> to inspect file contents.</p>
+</div>
+<section id="tree-overview">
+<h2>Tree overview<a class="headerlink" href="#tree-overview" title="Link to this heading">#</a></h2>
+<figure class="align-center" id="id3">
+<a class="reference external image-reference" href="_static/tree.png"><img alt="HDF5 composite CAE specification tree" src="_images/tree.png" style="width: 600px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Click to view full size.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="general-information">
+<h2>General information<a class="headerlink" href="#general-information" title="Link to this heading">#</a></h2>
+<p>This section describes general information about the HDF5 composite CAE format.</p>
+<section id="node-types-in-hdf5-tree">
+<h3>Node types in HDF5 tree<a class="headerlink" href="#node-types-in-hdf5-tree" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 55.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Node type</p></th>
+<th class="head"><p>Definition</p></th>
+<th class="head"><p>Examples</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Container node</p></td>
+<td><p>A group node that contains object nodes of the same type.</p></td>
+<td><p>fabrics, meshes, rosettes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Named object node</p></td>
+<td><p>Represents a single object. To avoid HDF5 naming restrictions, store the external object name in the <code class="docutils literal notranslate"><span class="pre">title</span></code> attribute. Store object data in attributes or attached data nodes.</p></td>
+<td><p>fabric, mesh, rosette</p></td>
+</tr>
+<tr class="row-even"><td><p>Link node</p></td>
+<td><p>A link node stores dependencies between nodes in the tree.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Data node</p></td>
+<td><p>A data node stores array or scalar values in its attributes.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>To support interoperability with high-level interfaces such as PyTables, use HDF5 node names that match the Perl-compatible regular expression:</p>
+<p><code class="docutils literal notranslate"><span class="pre">^[a-zA-Z_][a-zA-Z0-9_]*$</span></code></p>
+<p>Node names must be unique within a group.</p>
+</div>
+<p><strong>General rule:</strong> all string attributes use UTF-8 encoding.</p>
+</section>
+</section>
+<section id="root-level-nodes">
+<h2>Root-level nodes<a class="headerlink" href="#root-level-nodes" title="Link to this heading">#</a></h2>
+<section id="composite-cae">
+<h3>composite_cae<a class="headerlink" href="#composite-cae" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">composite_cae</span></code></p>
+<p>All attributes are optional.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">format_version</span></code></p></td>
+<td><p>string</p></td>
+<td><p>1.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">last_modified</span></code></p></td>
+<td><p>datestring</p></td>
+<td><p>“2010-08-23 13:31:13Z”</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vendor</span></code></p></td>
+<td><p>string</p></td>
+<td><p>“ansys, inc.”</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">unit_system</span></code></p></td>
+<td><p>string</p></td>
+<td><p>“SI”, “Imperial”</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">length_unit</span></code></p></td>
+<td><p>string</p></td>
+<td><p>“m”, “cm”, “mm”, “um”, “in”</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mass_unit</span></code></p></td>
+<td><p>string</p></td>
+<td><p>“kg”, “t”, “g”, “lbf”, “lbm”</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_unit</span></code></p></td>
+<td><p>string</p></td>
+<td><p>“s”</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">temp_unit</span></code></p></td>
+<td><p>string</p></td>
+<td><p>“C”, “K”, “F”</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">angles</span></code></p></td>
+<td><p>string</p></td>
+<td><p>“deg”, “rad”</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">unit_system</span></code> is not specified, the importer uses its default unit system.
+The <code class="docutils literal notranslate"><span class="pre">*_unit</span></code> attributes override <code class="docutils literal notranslate"><span class="pre">unit_system</span></code>.</p>
+<p>For example, if <code class="docutils literal notranslate"><span class="pre">unit_system</span></code> is “SI” and <code class="docutils literal notranslate"><span class="pre">length_unit</span></code> is “mm”, the length unit is “mm”.</p>
+</section>
+<section id="global-coordinate-system">
+<h3>Global coordinate system<a class="headerlink" href="#global-coordinate-system" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">composite_cae</span> <span class="pre">→</span> <span class="pre">global_coord_sys</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">global_coord_sys</span></code></p></td>
+<td><p>4×3 double array</p></td>
+<td><p>Defines origin and directions for the entire model: <code class="docutils literal notranslate"><span class="pre">[origin]</span></code>, <code class="docutils literal notranslate"><span class="pre">[dir1]</span></code>, <code class="docutils literal notranslate"><span class="pre">[dir2]</span></code>, and <code class="docutils literal notranslate"><span class="pre">[dir3]</span></code> with x/y/z components.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Ansys does not currently support this attribute.</p>
+</section>
+</section>
+<section id="material-data">
+<h2>Material data<a class="headerlink" href="#material-data" title="Link to this heading">#</a></h2>
+<section id="fabric-named">
+<h3>Fabric (named)<a class="headerlink" href="#fabric-named" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">material_data</span> <span class="pre">→</span> <span class="pre">fabrics</span> <span class="pre">→</span> <span class="pre">fabric(named)</span></code></p>
+</section>
+<section id="orientations-obsolete">
+<h3>Orientations (obsolete)<a class="headerlink" href="#orientations-obsolete" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">material_data</span> <span class="pre">→</span> <span class="pre">fabrics</span> <span class="pre">→</span> <span class="pre">fabric(named)</span> <span class="pre">→</span> <span class="pre">orientations</span> <span class="pre">(obsolete)</span></code></p>
+<p>Array of doubles.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[0, 45, -45]
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ansys does not read or write this property. This property may be removed in a future release.</p>
+</div>
+</section>
+<section id="mechanical">
+<h3>Mechanical<a class="headerlink" href="#mechanical" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">material_data</span> <span class="pre">→</span> <span class="pre">fabrics</span> <span class="pre">→</span> <span class="pre">fabric(named)</span> <span class="pre">→</span> <span class="pre">mechanical</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 20.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">architecture</span></code></p></td>
+<td><p>string (optional)</p></td>
+<td><p>uni, woven</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">weight_per_area</span></code></p></td>
+<td><p>double</p></td>
+<td><p>Weight per area</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cured_thickness</span></code></p></td>
+<td><p>double</p></td>
+<td><p>Cured thickness</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E1</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E2</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">E3</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">G12</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">G23</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">G31</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">v12</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">v13</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">v23</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">alpha1</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">alpha2</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">alpha_ref_temp</span></code></p></td>
+<td><p>double (optional)</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="cost">
+<h3>Cost<a class="headerlink" href="#cost" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">material_data</span> <span class="pre">→</span> <span class="pre">fabrics</span> <span class="pre">→</span> <span class="pre">fabric(named)</span> <span class="pre">→</span> <span class="pre">cost</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 20.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">currency</span></code></p></td>
+<td><p>string</p></td>
+<td><p>EUR, USD, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cost_per_area</span></code></p></td>
+<td><p>double</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="stackup-named">
+<h3>Stackup (named)<a class="headerlink" href="#stackup-named" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">material_data</span> <span class="pre">→</span> <span class="pre">stackups</span> <span class="pre">→</span> <span class="pre">stackup(named)</span></code></p>
+</section>
+<section id="id1">
+<h3>Cost<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">material_data</span> <span class="pre">→</span> <span class="pre">stackups</span> <span class="pre">→</span> <span class="pre">stackup(named)</span> <span class="pre">→</span> <span class="pre">cost</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 20.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">currency</span></code></p></td>
+<td><p>string</p></td>
+<td><p>EUR, USD, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cost_per_area</span></code></p></td>
+<td><p>double</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="fabric">
+<h3>Fabric<a class="headerlink" href="#fabric" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">material_data</span> <span class="pre">→</span> <span class="pre">stackups</span> <span class="pre">→</span> <span class="pre">stackup(named)</span> <span class="pre">→</span> <span class="pre">fabric</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 20.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">number</span></code></p></td>
+<td><p>unsigned</p></td>
+<td><p>Defines the order of fabrics within the stackup.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">angle</span></code></p></td>
+<td><p>double</p></td>
+<td><p>Angle of the fabric within the stackup.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="meshes">
+<h2>Meshes<a class="headerlink" href="#meshes" title="Link to this heading">#</a></h2>
+<section id="mesh-named">
+<h3>Mesh (named)<a class="headerlink" href="#mesh-named" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">meshes</span> <span class="pre">→</span> <span class="pre">mesh(named)</span></code></p>
+</section>
+<section id="node-labels">
+<h3>Node labels<a class="headerlink" href="#node-labels" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">meshes</span> <span class="pre">→</span> <span class="pre">mesh(named)</span> <span class="pre">→</span> <span class="pre">node_labels</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">node_labels</span></code></p></td>
+<td><p>n×1 integer array</p></td>
+<td><p>Unique node identifiers.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="nodes">
+<h3>Nodes<a class="headerlink" href="#nodes" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">meshes</span> <span class="pre">→</span> <span class="pre">mesh(named)</span> <span class="pre">→</span> <span class="pre">nodes</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nodes</span></code></p></td>
+<td><p>n×3 double array</p></td>
+<td><p>Node coordinates <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">z)</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="element-labels">
+<h3>Element labels<a class="headerlink" href="#element-labels" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">meshes</span> <span class="pre">→</span> <span class="pre">mesh(named)</span> <span class="pre">→</span> <span class="pre">element_labels</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">element_labels</span></code></p></td>
+<td><p>n×1 integer array</p></td>
+<td><p>Unique element identifiers.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="element-types">
+<span id="meshes-element-types"></span><h3>Element types<a class="headerlink" href="#element-types" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">meshes</span> <span class="pre">→</span> <span class="pre">mesh(named)</span> <span class="pre">→</span> <span class="pre">element_types</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">element_types</span></code></p></td>
+<td><p>n×1 integer array</p></td>
+<td><p>Element type identifier for each element.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Supported element types:</p>
+<ul class="simple">
+<li><p>3-node shell</p></li>
+<li><p>4-node shell</p></li>
+<li><p>6-node shell</p></li>
+<li><p>8-node shell</p></li>
+</ul>
+<p>The list of element types may expand in future releases, for example with 108 and 120 for 8-node and 20-node bricks.</p>
+</section>
+<section id="element-nodes">
+<h3>Element nodes<a class="headerlink" href="#element-nodes" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">meshes</span> <span class="pre">→</span> <span class="pre">mesh(named)</span> <span class="pre">→</span> <span class="pre">element_nodes</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">element_nodes</span></code></p></td>
+<td><p>n×m variable-length integer array (VLArray)</p></td>
+<td><p>Node indices for each element.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Defines element nodes. Node indices point directly to entries in the nodes and node_labels arrays.</p>
+<p>Node order must follow the indices shown below:</p>
+<ul class="simple">
+<li><p>3 nodes (linear triangle): I, J, K</p></li>
+<li><p>4 nodes (linear rectangle): I, J, K, L</p></li>
+<li><p>6 nodes (quadratic triangle): I, J, K, M, N, P</p></li>
+<li><p>8 nodes (quadratic rectangle): I, J, K, L, M, N, O, P</p></li>
+</ul>
+<figure class="align-center" id="id4">
+<a class="reference external image-reference" href="_static/elements.png"><img alt="Element Types" src="_images/elements.png" style="width: 400px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Click to view full size.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A VLArray (variable length array) is used to support different element types (see <a class="reference internal" href="#meshes-element-types"><span class="std std-ref">meshes → mesh(named) → element_types</span></a>).</p>
+</div>
+</section>
+<section id="edge-set-named">
+<h3>Edge set (named)<a class="headerlink" href="#edge-set-named" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">meshes</span> <span class="pre">→</span> <span class="pre">mesh(named)</span> <span class="pre">→</span> <span class="pre">edge_sets</span> <span class="pre">→</span> <span class="pre">edge_set(named)</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">edge_set</span></code></p></td>
+<td><p>n×1 unsigned integer array</p></td>
+<td><p>Node indices that reference nodes in this set.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="element-set-named">
+<h3>Element set (named)<a class="headerlink" href="#element-set-named" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">meshes</span> <span class="pre">→</span> <span class="pre">mesh(named)</span> <span class="pre">→</span> <span class="pre">element_sets</span> <span class="pre">→</span> <span class="pre">element_set(named)</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">element_set</span></code></p></td>
+<td><p>n×1 unsigned integer array</p></td>
+<td><p>Element indices that reference elements in this set.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading">#</a></h2>
+<section id="component-named">
+<h3>Component (named)<a class="headerlink" href="#component-named" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">components</span> <span class="pre">→</span> <span class="pre">component(named)</span></code></p>
+<p>Attributes:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 20.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<td><p>string</p></td>
+<td><p>ply, core, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">layer_id</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>The step value and global identifier. It defines ply order from bottom to top.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">orientation</span></code></p></td>
+<td><p>double</p></td>
+<td><p>The nominal orientation angle relative to the reference direction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mapping_type</span></code></p></td>
+<td><p>string</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The mapping_type attribute is optional and is detailed later. Because ACP can use multiple rosettes
+to define a ply’s reference direction, several mapping types are defined, including interpolation algorithms such as “minimum distance” and “minimum angle.”</p>
+</div>
+</section>
+<section id="placement-coordinate-system">
+<h3>Placement coordinate system<a class="headerlink" href="#placement-coordinate-system" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">components</span> <span class="pre">→</span> <span class="pre">component(named)</span> <span class="pre">→</span> <span class="pre">placement_coord_sys</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">placement_coord_sys</span></code></p></td>
+<td><p>4×3 double array</p></td>
+<td><p>Placement coordinate system rows: <code class="docutils literal notranslate"><span class="pre">[origin]</span></code>, <code class="docutils literal notranslate"><span class="pre">[dir1]</span></code>, <code class="docutils literal notranslate"><span class="pre">[dir2]</span></code>, and <code class="docutils literal notranslate"><span class="pre">[normal]</span></code> with x/y/z components.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The placement_coord_sys has two purposes:</p>
+<ul class="simple">
+<li><p>Its normal defines the default offset direction of the layup.</p></li>
+<li><p>Its origin and dir1 define the starting point and initial direction of the draping calculation.</p></li>
+</ul>
+</section>
+<section id="material">
+<h3>Material<a class="headerlink" href="#material" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">components</span> <span class="pre">→</span> <span class="pre">component(named)</span> <span class="pre">→</span> <span class="pre">material</span></code></p>
+<p><strong>Softlink</strong></p>
+<p>Defines the ply material and refers to an object in <code class="docutils literal notranslate"><span class="pre">material_data</span> <span class="pre">→</span> <span class="pre">fabrics</span></code> or <code class="docutils literal notranslate"><span class="pre">material_data</span> <span class="pre">→</span> <span class="pre">stackups</span></code>.</p>
+</section>
+<section id="element-set">
+<h3>Element set<a class="headerlink" href="#element-set" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">components</span> <span class="pre">→</span> <span class="pre">component(named)</span> <span class="pre">→</span> <span class="pre">element_set</span></code></p>
+<p><strong>Softlink</strong></p>
+<p>Defines a link to an element set of a mesh and specifies the ply extent.</p>
+</section>
+<section id="data-map">
+<h3>Data map<a class="headerlink" href="#data-map" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">components</span> <span class="pre">→</span> <span class="pre">component(named)</span> <span class="pre">→</span> <span class="pre">data_map</span></code></p>
+<p><strong>Softlink</strong></p>
+<p>Defines a link to the data map of this component.</p>
+<p>The following rules apply:</p>
+<ul class="simple">
+<li><p>If the data map contains a thickness, a material of type <code class="docutils literal notranslate"><span class="pre">material_data</span> <span class="pre">→</span> <span class="pre">stackups</span></code> is not supported.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">data_map</span> <span class="pre">→</span> <span class="pre">thickness</span></code> is not defined, thickness is computed from <code class="docutils literal notranslate"><span class="pre">cured_thickness</span></code> when the material is a fabric, or from the sum of all <code class="docutils literal notranslate"><span class="pre">cured_thickness</span></code> values when <code class="docutils literal notranslate"><span class="pre">material_data</span> <span class="pre">→</span> <span class="pre">stackups</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">matorient_1_angles</span></code> is not present, it is set equal to <code class="docutils literal notranslate"><span class="pre">component</span> <span class="pre">→</span> <span class="pre">orientation</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">matorient_2_angles</span></code> is not present, it is computed as: <code class="docutils literal notranslate"><span class="pre">matorient_2_angles</span> <span class="pre">=</span> <span class="pre">matorient_1_angles</span> <span class="pre">+</span> <span class="pre">90°</span></code>.</p></li>
+</ul>
+</section>
+<section id="rosette-named">
+<h3>Rosette (named)<a class="headerlink" href="#rosette-named" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">components</span> <span class="pre">→</span> <span class="pre">component(named)</span> <span class="pre">→</span> <span class="pre">rosettes</span> <span class="pre">→</span> <span class="pre">rosette(named)</span></code></p>
+<p><strong>Softlink (Optional)</strong></p>
+<p>Defines a link to the rosettes of this component.</p>
+</section>
+</section>
+<section id="rosettes">
+<h2>Rosettes<a class="headerlink" href="#rosettes" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>Rosette (named)<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">rosettes</span> <span class="pre">→</span> <span class="pre">rosette(named)</span></code></p>
+<p>Attributes:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 20.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mapping_type</span></code></p></td>
+<td><p>string</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The possible values of the rosette mapping_type are not yet specified. FiberSIM defines the mapping types as “translational”, “standard”, or “rotational”.
+ACP defines the standard rosette types as “parallel”, “radial”, “cylindrical”, or “spherical”. The exact definition of this attribute has been postponed
+because this information is optional and is not required to map the ply orientation field correctly.</p>
+</div>
+</section>
+<section id="coordinate-system">
+<h3>Coordinate system<a class="headerlink" href="#coordinate-system" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">rosettes</span> <span class="pre">→</span> <span class="pre">rosette(named)</span> <span class="pre">→</span> <span class="pre">coord_sys</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">coord_sys</span></code></p></td>
+<td><p>4×3 double array</p></td>
+<td><p>Rosette coordinate system rows: <code class="docutils literal notranslate"><span class="pre">[origin]</span></code>, <code class="docutils literal notranslate"><span class="pre">[dir1]</span></code>, <code class="docutils literal notranslate"><span class="pre">[dir2]</span></code>, and <code class="docutils literal notranslate"><span class="pre">[normal]</span></code> with x/y/z components.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-maps">
+<h2>Data maps<a class="headerlink" href="#data-maps" title="Link to this heading">#</a></h2>
+<section id="data-map-named">
+<h3>Data map (named)<a class="headerlink" href="#data-map-named" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">data_maps</span> <span class="pre">→</span> <span class="pre">data_map(named)</span></code></p>
+</section>
+<section id="element-node-set-link">
+<h3>Element/node set link<a class="headerlink" href="#element-node-set-link" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">data_maps</span> <span class="pre">→</span> <span class="pre">data_map(named)</span> <span class="pre">→</span> <span class="pre">element_set/node/node_set</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">element_set</span></code> / <code class="docutils literal notranslate"><span class="pre">node_set</span></code></p></td>
+<td><p>softlink</p></td>
+<td><p>Link to a mesh element set or edge set where orientations, thicknesses, and other values are defined.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="reference-directions">
+<h3>Reference directions<a class="headerlink" href="#reference-directions" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">data_maps</span> <span class="pre">→</span> <span class="pre">data_map(named)</span> <span class="pre">→</span> <span class="pre">reference_directions</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">reference_directions</span></code></p></td>
+<td><p>n×3 double array</p></td>
+<td><p>Reference directions as absolute direction vectors.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="normals">
+<h3>Normals<a class="headerlink" href="#normals" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">data_maps</span> <span class="pre">→</span> <span class="pre">data_map(named)</span> <span class="pre">→</span> <span class="pre">normals</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">normals</span></code></p></td>
+<td><p>n×3 double array (optional)</p></td>
+<td><p>Normal directions as absolute vectors used to project the reference direction onto the normal plane.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="matorient-1-angles">
+<h3>Matorient 1 angles<a class="headerlink" href="#matorient-1-angles" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">data_maps</span> <span class="pre">→</span> <span class="pre">data_map(named)</span> <span class="pre">→</span> <span class="pre">matorient_1_angles</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">matorient_1_angles</span></code></p></td>
+<td><p>n×1 double array (optional)</p></td>
+<td><p>Material orientation 1 angles relative to the reference direction and given normal.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="matorient-2-angles">
+<h3>Matorient 2 angles<a class="headerlink" href="#matorient-2-angles" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">data_maps</span> <span class="pre">→</span> <span class="pre">data_map(named)</span> <span class="pre">→</span> <span class="pre">matorient_2_angles</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">matorient_2_angles</span></code></p></td>
+<td><p>n×1 double array (optional)</p></td>
+<td><p>Material orientation 2 angles relative to the reference direction and given normal.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="thicknesses">
+<h3>Thicknesses<a class="headerlink" href="#thicknesses" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">data_maps</span> <span class="pre">→</span> <span class="pre">data_map(named)</span> <span class="pre">→</span> <span class="pre">thicknesses</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">thicknesses</span></code></p></td>
+<td><p>n×1 double array (optional)</p></td>
+<td><p>Position-dependent thickness values.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="scalar-user-data-named">
+<h3>Scalar user data (named)<a class="headerlink" href="#scalar-user-data-named" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">data_maps</span> <span class="pre">→</span> <span class="pre">data_map(named)</span> <span class="pre">→</span> <span class="pre">scalar_user_data</span> <span class="pre">→</span> <span class="pre">scalar_user_data(named)</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scalar_user_data</span></code></p></td>
+<td><p>n×1 double array (optional)</p></td>
+<td><p>User-defined scalar data field. Only supported by Ansys.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 20.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">unit_type</span></code></p></td>
+<td><p>string</p></td>
+<td><p>“dimensionless”, “length”, “mass”, “time”, “temp” (default: “dimensionless”)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="component-groups">
+<h2>Component groups<a class="headerlink" href="#component-groups" title="Link to this heading">#</a></h2>
+<section id="component-group-named">
+<h3>Component group (named)<a class="headerlink" href="#component-group-named" title="Link to this heading">#</a></h3>
+<p><strong>Path:</strong> <code class="docutils literal notranslate"><span class="pre">component_groups</span> <span class="pre">→</span> <span class="pre">component_group(named)</span></code></p>
+<p>Component groups are optional. You can define them to store grouping information of components.</p>
+</section>
+</section>
+<section id="change-log">
+<h2>Change log<a class="headerlink" href="#change-log" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 23.1%" />
+<col style="width: 76.9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Date</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>May 5, 2010</p></td>
+<td><p>ACP–FiberSIM Interface Format Specification Rev 01</p></td>
+</tr>
+<tr class="row-odd"><td><p>June 5, 2010</p></td>
+<td><p>HDF5 Composite CAE Data File Specification Proposal version 1.1</p></td>
+</tr>
+<tr class="row-even"><td><p>Aug 10, 2010</p></td>
+<td><p>HDF5 Composite CAE Data File Specification Release Candidate 1 for stable version 1.0.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Aug 11, 2010</p></td>
+<td><p>Minor updates in “Open Questions”, added Section “Specification of Node Names”</p></td>
+</tr>
+<tr class="row-even"><td><p>Aug 30, 2010</p></td>
+<td><p>Upgrade specification to match all issues recently discussed with Vistagy via emails</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mar 17, 2011</p></td>
+<td><p>Cleanup the document a little</p></td>
+</tr>
+<tr class="row-even"><td><p>Oct 17, 2014</p></td>
+<td><p>Adding component_groups and component_group nodes</p></td>
+</tr>
+<tr class="row-odd"><td><p>June 28, 2019</p></td>
+<td><p>Adding some additional information</p></td>
+</tr>
+<tr class="row-even"><td><p>January 24, 2020</p></td>
+<td><p>Corrected name for matorient_angles: “mat_orient1_angles” to “matorient_1_angles” and “mat_orient2_angles” to “matorient_2_angles”. Defined which fields in data_map are optional and specify what happens if optional nodes are missing. Clarified use of placement_coord_sys</p></td>
+</tr>
+<tr class="row-odd"><td><p>September 15, 2020</p></td>
+<td><p>Mentioned that global_coord_sys is currently not supported. Correct what happens when matorient_1_angles are not present</p></td>
+</tr>
+<tr class="row-even"><td><p>January 26, 2022</p></td>
+<td><p>Mark <code class="docutils literal notranslate"><span class="pre">material_data-&gt;fabrics-&gt;fabric(named)-&gt;orientations</span></code> as obsolete</p></td>
+</tr>
+<tr class="row-odd"><td><p>February 4, 2022</p></td>
+<td><p>Change Href to Softlink for items that have to be linked with a Softlink</p></td>
+</tr>
+<tr class="row-even"><td><p>February 8, 2022</p></td>
+<td><p>Correct datatype for element_labels, element_nodes and element_types (now int), clarified layer id</p></td>
+</tr>
+<tr class="row-odd"><td><p>February 17, 2022</p></td>
+<td><p>Clarified units specification, Mark optional material properties as optional</p></td>
+</tr>
+<tr class="row-even"><td><p>May 12, 2022</p></td>
+<td><p>Add optional scalar_user_data data_map property</p></td>
+</tr>
+<tr class="row-odd"><td><p>May 31, 2022</p></td>
+<td><p>Improved formatting, Removed outdated future plans section. Added missing rosettes in component</p></td>
+</tr>
+<tr class="row-even"><td><p>May 22, 2023</p></td>
+<td><p>Improve documentation of node order</p></td>
+</tr>
+<tr class="row-odd"><td><p>May 15, 2024</p></td>
+<td><p>Complete supported units</p></td>
+</tr>
+<tr class="row-even"><td><p>June 21, 2024</p></td>
+<td><p>Clarified orientation</p></td>
+</tr>
+<tr class="row-odd"><td><p>April 14, 2024</p></td>
+<td><p>Some clarifications</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-overview">Tree overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-information">General information</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-types-in-hdf5-tree">Node types in HDF5 tree</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-level-nodes">Root-level nodes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#composite-cae">composite_cae</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global-coordinate-system">Global coordinate system</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#material-data">Material data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fabric-named">Fabric (named)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#orientations-obsolete">Orientations (obsolete)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mechanical">Mechanical</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost">Cost</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stackup-named">Stackup (named)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Cost</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fabric">Fabric</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meshes">Meshes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mesh-named">Mesh (named)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-labels">Node labels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#element-labels">Element labels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#element-types">Element types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#element-nodes">Element nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#edge-set-named">Edge set (named)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#element-set-named">Element set (named)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#components">Components</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#component-named">Component (named)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#placement-coordinate-system">Placement coordinate system</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#material">Material</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#element-set">Element set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-map">Data map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rosette-named">Rosette (named)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rosettes">Rosettes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Rosette (named)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-system">Coordinate system</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-maps">Data maps</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-map-named">Data map (named)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#element-node-set-link">Element/node set link</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-directions">Reference directions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normals">Normals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matorient-1-angles">Matorient 1 angles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matorient-2-angles">Matorient 2 angles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#thicknesses">Thicknesses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-user-data-named">Scalar user data (named)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#component-groups">Component groups</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#component-group-named">Component group (named)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-log">Change log</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item"> 
+<div class="tocsection editthispage">
+  <a href="https://github.com/ansys/hdf5-composite-cae/edit/main/doc/source/specification.rst">
+    <i class="fa-solid fa-pencil"></i>
+       Edit
+    on GitHub  
+  </a>
+</div>
+
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="_sources/specification.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "_static/search.json";
+const ADVANCE_SEARCH_PATH = "search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.6.4. <br />Last updated on
+  <span id="ast_build_date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var ast_lastModifiedDate = new Date(document.lastModified);
+  var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("ast_build_date").innerHTML = ast_build_date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

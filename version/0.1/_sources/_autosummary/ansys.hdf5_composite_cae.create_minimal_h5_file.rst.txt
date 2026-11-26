@@ -1,0 +1,6 @@
+﻿create\_minimal\_h5\_file
+=========================
+
+.. currentmodule:: ansys.hdf5_composite_cae
+
+.. autofunction:: create_minimal_h5_file

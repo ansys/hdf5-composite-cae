@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- managed-by: ansys/actions/_doc-gen-sitemap -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://hdf5-composite-cae.docs.pyansys.com/</loc>
+    <lastmod>2026-11-26T11:19:02+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://hdf5-composite-cae.docs.pyansys.com/version/stable/specification.html</loc>
+  </url>
+  <url>
+    <loc>https://hdf5-composite-cae.docs.pyansys.com/version/stable/user_guide.html</loc>
+  </url>
+  <url>
+    <loc>https://hdf5-composite-cae.docs.pyansys.com/version/stable/api.html</loc>
+  </url>
+  <url>
+    <loc>https://hdf5-composite-cae.docs.pyansys.com/version/stable/_autosummary/ansys.hdf5_composite_cae.create_minimal_h5_file.html</loc>
+  </url>
+  <url>
+    <loc>https://hdf5-composite-cae.docs.pyansys.com/version/stable/_autosummary/ansys.hdf5_composite_cae.validate_file.html</loc>
+  </url>
+  <url>
+    <loc>https://hdf5-composite-cae.docs.pyansys.com/version/stable/contribute.html</loc>
+  </url>
+  <url>
+    <loc>https://hdf5-composite-cae.docs.pyansys.com/version/stable/index.html</loc>
+  </url>
+  <url>
+    <loc>https://hdf5-composite-cae.docs.pyansys.com/version/stable/getting_started.html</loc>
+  </url>
+</urlset>
